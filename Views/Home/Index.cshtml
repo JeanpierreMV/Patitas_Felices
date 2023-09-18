@@ -2,13 +2,73 @@
     ViewData["Title"] = "Home Page";
 }
 @section Styles {
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/css/home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
     <link rel="stylesheet" href="~/css/home.css">
 }
 <body>
-<section >
-<div class="text-center">
-   
-</div>
+<section class="home">
+    <div class="home__container container">
+
+        <div class="home__data">
+            <h2 class="home__subtitle">Patitas Felices</h2>
+
+            <h1 class="home__title">
+                Mascotas <br>
+                Productos <br>
+                Cuidados <br>
+            </h1>
+            <p class="home__description">
+                "Patitas Felices: Un refugio de amor para perritos y gatitos. 
+                Buscamos hogares cariñosos, voluntarios apasionados y donaciones generosas. 
+                Únete a nosotros para hacer patitas felices juntos."
+            </p>
+            <a href="#" class="home__button"> Unirse </a>
+        </div>
+
+        <div class="home__images">
+            <div class="home__circle"></div>
+            <div class="home__swiper swiper">
+                <div class="swiper-wrapper">
+                    <article class="home_article swiper-slide">
+                        <img src="/img/inic1.png" alt="image" class="home__mascotas">
+                    </article>
+
+                    <article class="home_article swiper-slide">
+                        <img src="/img/inic2.png" alt="image" class="home__mascotas">
+                    </article>
+
+                    <article class="home_article swiper-slide">
+                        <img src="/img/inic3.png" alt="image" class="home__mascotas">
+                    </article>
+                </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="home__social">
+            
+            <a href="" target="_blank" class="home__social-link">
+                <i class="ri-facebook-circle-fill"></i>
+            </a>
+
+            <a href="" target="_blank" class="home__social-link">
+                <i class="ri-instagram-fill"></i>
+            </a>
+
+            <a href="" target="_blank" class="home__social-link">
+                <i class="ri-tiktok-fill"></i>
+            </a>
+            
+        </div>   
+    </div>
 </section>
 </body>
+@section Scripts {  
+    <script src="~/js/swiper-bundle.min.js"></script>
+    <script src="~/js/inicio.js"></script>
+
+    
+}
