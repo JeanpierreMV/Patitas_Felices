@@ -20,6 +20,6 @@ namespace Patitas_Felices.Models
         public string domicilio { get; set; }
         public int celular { get; set; }
         public int dni { get; set; }
-         public IdentityUser User { get; set; }
+        public IdentityUser User { get; set; }
     }
 }

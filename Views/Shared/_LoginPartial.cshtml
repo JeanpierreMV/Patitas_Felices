@@ -3,35 +3,63 @@
 @inject UserManager<IdentityUser> UserManager
 
 <div class="nav__button">
-     <div class="row">
-        @if (SignInManager.IsSignedIn(User)){ 
+    <div class="row">
+        @if (SignInManager.IsSignedIn(User))
+        { 
 
-            <div class="col-6">
-                <div class="nav__button-link">
-                    <a  class="nav__button-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <div class="dropdown col-9">
+                <input type="text" class="textbox" placeholder="Hello @(User.Identity?.Name)" readonly>
+                <div class="option">
+                    <a  asp-controller="Profile" asp-action="Index">
+                    <div onclick="show('Datos Personales')"><ion-icon name="person-outline"></ion-icon>Datos Personales</div>
+                    </a>
+                    <a   asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <div onclick="show('Seguridad')"><ion-icon name="settings-outline"></ion-icon>Seguridad</div>
+                    </a>
                 </div>
             </div>
-
-            <div class="col-6">
+            @* <div class="col-6">
                 <div class="nav__button-link">
-                    <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                        <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    <a class="nav__button-link" asp-area="" asp-controller="Profile" asp-action="Index" title="Manage">Hello
+                        @User.Identity?.Name!</a>
+                </div>
+            </div> *@
+
+            <div class="col-3">
+                <div class="nav__button-link">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                        asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                     </form>
                 </div>
             </div>
-        }else{
-            
+        }
+        else
+        {
+
             <div class="col-6">
                 <div class="nav__button-link">
-                    <a class="nav__button-ghost"asp-area="Identity" asp-page="/Account/Register">Register</a>   
+                    <a class="nav__button-ghost" asp-area="Identity" asp-page="/Account/Register">Register</a>
                 </div>
             </div>
 
             <div class="col-6">
-                <div class="nav__button-link" >
+                <div class="nav__button-link">
                     <a class="nav__button-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
                 </div>
             </div>
         }
     </div>
 </div>
+
+@section Scripts {  
+       <script>      
+        let dropDown = document.querySelector('.dropdown');
+        dropDown.onclick = function(){
+             console.log("Dropdown clicked"); 
+            dropDown.classList.toggle('active')
+        }
+    </script>
+
+    
+}

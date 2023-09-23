@@ -11,5 +11,6 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<MASCOTAS>? PRODUCTs{get; set;}
+    public DbSet<CLIENTE>? CLIENTE{get; set;}
 }
 

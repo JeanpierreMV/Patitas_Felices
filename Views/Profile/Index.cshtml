@@ -1,0 +1,33 @@
+@model Patitas_Felices.Models.CLIENTE
+
+<h2>Crear Cliente</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="nombres" class="control-label"></label>
+        <input asp-for="nombres" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="apellidos" class="control-label"></label>
+        <input asp-for="apellidos" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="apodo" class="control-label"></label>
+        <input asp-for="apodo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="domicilio" class="control-label"></label>
+        <input asp-for="domicilio" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="celular" class="control-label"></label>
+        <input asp-for="celular" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="dni" class="control-label"></label>
+        <input asp-for="dni" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Crear" class="btn btn-primary" />
+    </div>
+</form>

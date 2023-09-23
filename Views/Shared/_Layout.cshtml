@@ -16,6 +16,7 @@
     <header>
          <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent border-bottom box-shadow mb-3 ">
             <div class="container-fluid">
+        
                 <a class="nav__logo" asp-area="" asp-controller="Home" asp-action="Index"> 
                    <img src="/img/logo.png" >
                 </a>
@@ -55,8 +56,20 @@
         </div>
     </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>      
+        let dropDown = document.querySelector('.dropdown');
+        dropDown.onclick = function(){
+             console.log("Dropdown clicked"); 
+            dropDown.classList.toggle('active')
+        }
+    </script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
