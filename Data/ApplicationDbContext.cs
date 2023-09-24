@@ -10,7 +10,10 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
-    public DbSet<MASCOTAS>? PRODUCTs{get; set;}
+    public DbSet<MASCOTAS>? MASCOTAS{get; set;}
     public DbSet<CLIENTE>? CLIENTE{get; set;}
+    public DbSet<H_MEDICO>? H_MEDICO{get; set;}
+    public DbSet<ADOPCION>? ADOPCION{get; set;}
+
 }
 
