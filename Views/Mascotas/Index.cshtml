@@ -1,17 +1,20 @@
 @model IEnumerable<Patitas_Felices.Models.MASCOTAS>
 
 @{
-    ViewData["Title"] = "Catalogo";
+    ViewData["Title"] = "Mascotas para Adoptar";
 }
 
 
-
-
-<form class="input-group mb-3" asp-controller="Mascotas" asp-action="Index">
-      <input type="text" name="searchString" class="form-control" placeholder="Búsqueda" aria-label="Búsqueda" aria-describedby="button-addon2">
-      <button class="btn btn-primary" type="submit" id="button-addon2"><font style="vertical-align:inherit;"><font style="vertical-align:inherit;">Búsqueda</font></font></button>
-</form >
-
+<div class="center">
+<div class="search_content">
+    <div class="input_cont">
+        <form  asp-controller="Mascotas" asp-action="Index">
+            <input type="text" name="searchString"  placeholder="Búsqueda"  >
+            <button id="btn" onclick="showSearch()">Búsqueda</button>
+        </form >
+    </div>
+</div>
+</div>
 
 <h1>@ViewData["Title"]</h1>
 <div class="container">
