@@ -23,19 +23,30 @@ namespace appejemplo2.Controllers
             _logger = logger;
             _userManager= userManager;
         } 
+
+
         public async Task<IActionResult> Index(string? searchString){
+            var mascota = from o in _context.MASCOTAS select o;
 
-            var producto = from o in _context.MASCOTAS select o;
-
-            if(!String.IsNullOrEmpty(searchString)){
-
-                producto =producto.Where( s => s.nombre.Contains(searchString));
+            if (!String.IsNullOrEmpty(searchString)){
+                searchString = searchString.ToLower();
+                mascota = mascota.Where(s => s.nombre.ToLower().Contains(searchString));
             }
 
-            return View(await producto.ToListAsync());
+            return View(await mascota.ToListAsync());
         }
 
+
         public async Task<IActionResult> Details(int? id){
+            MASCOTAS objMascot = await _context.MASCOTAS.FindAsync(id);
+            if(objMascot == null){
+                return NotFound();
+            }
+            return View(objMascot);
+        }
+        
+        public async Task<IActionResult>Adopcion(int? id){
+            
             MASCOTAS objMascot = await _context.MASCOTAS.FindAsync(id);
             if(objMascot == null){
                 return NotFound();

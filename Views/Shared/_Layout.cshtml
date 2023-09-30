@@ -30,12 +30,18 @@
                         <li class="nav-item">
                             <a class="nav__button-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                            @if (User.Identity.IsAuthenticated)
+    {
                         <li class="nav-item">
                             <a class="nav__button-link" asp-area="" asp-controller="Mascotas" asp-action="Index">Macotas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav__button-link" asp-area="" asp-controller="Home" asp-action="Privacy">Productos</a>
+                            <a class="nav__button-link" asp-area="" asp-controller="ClientesList" asp-action="Index">Clientes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav__button-link" asp-area="" asp-controller="HistoryMedic" asp-action="Index">Gestion Medica</a>
+                        </li>
+    }
                     </ul>
                     <div class="nav__button">
                     <partial name="_LoginPartial" />

@@ -1,0 +1,58 @@
+@model Patitas_Felices.Models.MASCOTAS
+@{
+     ViewData["Title"] = "Adopcion";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Adopcion.css">     
+}
+
+<div class="row">
+<div class="title-with-image col-md-3">
+    <h1>@ViewData["Title"]</h1>
+</div>
+<div class="center-container col-md-9" style="max-width: 100px; height: 100px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+        <img src="data:image/png;base64,@Convert.ToBase64String(Model.Imagen)"  style="object-fit: contain; max-width: 230%; max-height: 230%;">
+</div>
+</div>
+
+<div class="row">   
+    <div class="col-md-6">
+        <form action="/ruta_a_tu_servidor" method="post">
+
+            <label for="campo1">Antecedentes Penales:</label><br>
+            <input type="file" id="archivo1" name="archivo1"><br>
+
+            <label for="campo2">Foto de DNI:</label><br>
+            <input type="file" id="archivo2" name="archivo2"><br>
+
+            <label for="campo3">Recibo de Luz:</label><br>
+            <input type="file" id="archivo3" name="archivo3"><br>
+
+            <label for="campo4">Recibo de Agua:</label><br>
+            <input type="file" id="archivo4" name="archivo4"><br>
+
+            <label for="campo5">Miembros de la Familia:</label><br>
+            <input type="text" id="campo5" name="campo5"><br>
+
+            <label for="campo6">Cantidad de niños:</label><br>
+            <input type="text" id="campo6" name="campo6"><br>   
+
+        </form>
+    </div>
+     <div class="col-md-6">
+         <form action="/ruta_a_tu_servidor" method="post">
+
+            <label for="campo1">Domicilio:</label><br>
+            <input type="text" id="campo1" name="campo1"><br>
+
+            <label for="campo2">Descripción de domicilio:</label><br>
+            <input type="text" id="campo2" name="campo2"><br>
+
+            <label for="campo3">Porque desea adoptar:</label><br>
+            <input type="text" id="campo3" name="campo3"><br>
+
+        </form>
+    </div>
+    <input type="submit" value="Enviar">
+ </div>

@@ -1,0 +1,60 @@
+@model IEnumerable<Patitas_Felices.Models.MASCOTAS>
+
+@{
+    ViewData["Title"] = "Listado de Mascotas";
+}
+
+
+<div class="center">
+<div class="search_content">
+    <div class="input_cont">
+        <form  asp-controller="MascotasList" asp-action="Index">
+            <input type="text" name="searchString"  placeholder="Búsqueda"  >
+            <button id="btn" onclick="showSearch()">Búsqueda</button>
+        </form >
+    </div>
+</div>
+</div>
+
+<h1>@ViewData["Title"]</h1>
+<div class="container">
+<h1>@ViewData["Message"]</h1>
+<div class="row">
+    <div id="MascotasList" class="col-sm-12 text-center">
+        <div class="row">
+            <div>
+                <table class="table mx-auto">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NOMBRE</th>
+                            <th>TIPO</th>
+                            <th>RAZA</th>
+                            <th>EDAD</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model){
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.tipo)</td>
+                                <td>@Html.DisplayFor(modelItem => item.raza)</td>
+                                <td>@Html.DisplayFor(modelItem => item.edad)</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Add">editar</a>
+                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.id">Ver</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>

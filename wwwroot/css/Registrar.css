@@ -1,0 +1,278 @@
+/*=============== GOOGLE FONTS ===============*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --white-color: hsl(0, 0%, 97%);
+  --black-color: hsl(0, 0%, 0%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: 'Poppins', sans-serif;;
+  --h1-font-size: 1.75rem;
+  --normal-font-size: 1rem;
+  --small-font-size: .813rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body,
+input,
+button {
+  font-size: var(--normal-font-size);
+  font-family: var(--body-font);
+}
+
+body {
+  color: var(--white-color);
+  
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+
+
+/* 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+ */
+}
+
+ /* 
+.contenedor-imagen {
+ position: fixed; Fija el contenedor en la ventana del navegador 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;  
+  z-index: -1
+}
+*/
+
+
+/*=============== LOGIN ===============*/
+.login{
+  position: fixed; 
+  display: grid;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;  
+  z-index: -1
+}
+
+.login__img{
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  z-index: -1
+}
+
+
+
+
+
+.logf {
+  position: fixed; /* Deja solo una instancia de position: fixed; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;/* Centramos verticalmente */
+}
+.logf__form{
+  position :relative;
+  width: 450px;
+  background-color: hsla(0,0%,10%,.1);
+  border: 2px solid var(--white-color);
+  margin-inline: 1.5rem;
+  padding:2.5rem 1.5rem;
+  border-radius:1rem;
+  backdrop-filter: blur(8px);
+ 
+}
+
+.logf__tittle{
+  text-align: center;
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-medium);
+  margin-bottom: 2rem;
+}
+
+.logf__content,
+.logf__box{
+  display:grid;
+}
+
+.logf__content{
+  row-gap:1.75rem;
+  margin-bottom:1.5rem;
+}
+
+.logf__box{
+  grid-template-columns: max-content 1fr;
+  align-items: center;
+  column-gap: .75rem;
+  border-bottom: 2px solid var(--white-color);
+}
+
+
+.logf__icon,
+.logf__eye{
+  font-size: 1.25rem;
+}
+
+.logf__input{
+  width: 100%;
+  padding-block: .8rem;
+  background: none;
+  color: var(--white-color);
+  position: relative;
+  z-index: 1;
+}
+
+.logf__box-input{
+  position: relative;
+}
+
+.logf__label{
+  position: absolute;
+  left: 0;
+  top: 13px;
+  font-weight: var(--font-medium);
+  transition: top .3s, font-size .3s;
+}
+
+
+.logf__eye{
+  position: absolute;
+  right:0;
+  top: 18px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.logf__box:nth-child(2) input {
+  padding-right: 2rem;
+}
+
+.logf__check,
+.logf__check-group{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logf__check{
+  margin-bottom:1.5rem;
+}
+
+.logf__check-label,
+.logf__forgot,
+.logf__register{
+  font-size: var(--small-font-size);
+}
+
+.logf__check-group{
+  column-gap: 5rem;
+}
+
+.logf__check-input{
+  width: 16px;
+  height: 16px
+}
+
+.logf__forgot{
+  color: var(--white-color);
+}
+
+.logf__forgot:hover{
+  text-decoration: underline;
+}
+
+.logf__button{
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--white-color);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.logf__register{
+  text-align: center;
+}
+
+.logf__register a{
+  color: var(--white-color);
+  font-weight: var(--font-medium);
+}
+
+.logf__register a:hover{
+  text-decoration: underline;
+}
+
+
+/* elevar pass y email */
+.logf__input:focus +.logf__label{
+  top:-12px;
+  font-size: var(--small-font-size);
+}
+
+/* mantener arriba para que se mantenga arriba cuando escribo xddd para que lees esto */
+
+.logf__input:not(:placeholder-shown).logf__input:not(:focus) + .logf__label{
+  top: -12px;
+  font-size: var(--small-font-size);
+}
+
+
+/*=============== BREAKPOINTS ===============*/
+/* For medium devices */
+@media screen and (min-widh: 576px){
+  .logf{
+    justify-content: center;
+  }
+  .logf__form{
+    width: 432px;
+    padding: 4rem 3rem 3.5rem;
+    border-radius: 1.5rem;
+  }
+  .logf__tittle{
+    font-size: 2rem;
+  }
+}

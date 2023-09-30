@@ -1,0 +1,78 @@
+@model IEnumerable<Patitas_Felices.Models.H_MEDICO>
+
+@{
+    ViewData["Title"] = "Historial Medico";
+}
+<h1>@ViewData["Title"]</h1>
+<br><br>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <!-- Elementos a la izquierda -->
+            <div class="search_content">
+                <div class="input_cont">
+                    <form  asp-controller="HistoryMedic" asp-action="Index">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="searchString" placeholder="Búsqueda" aria-label="Búsqueda" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button id="btn" onclick="showSearch()" class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+
+                    </form >
+                </div>
+            </div>
+            <!-- Agrega aquí otros elementos que quieres mostrar a la izquierda -->
+        </div>
+        <div class="col-md-2 text-left">
+            <!-- Botón de crear a la derecha -->
+            <a href="@Url.Action("Create", "HistoryMedic")" class="btn btn-primary">Crear Historia</a>
+        </div>
+    </div>
+</div>
+<br><br><br>
+
+
+
+<div class="container">
+<h1>@ViewData["Message"]</h1>
+<div class="row">
+    <div id="HistoryMedic" class="col-sm-12 text-center">
+        <div class="row">
+            <div>
+                <table class="table mx-auto">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo sangre</th>
+                            <th>Fecha Registro</th>
+                            <th>Observaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model){
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Tip_Sangre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Fecha_reg)</td>
+                                <td>@Html.DisplayFor(modelItem => item.observaciones)</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Edit">editar</a>
+                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.id">Ver</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>

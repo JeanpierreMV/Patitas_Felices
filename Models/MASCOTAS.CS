@@ -22,6 +22,8 @@ namespace Patitas_Felices.Models
         public string caracter { get; set; }
         public byte[] Imagen { get; set; }
         public string  tipo{ get; set; }
+        public string  Descripcion{ get; set; }
+
        
 
 

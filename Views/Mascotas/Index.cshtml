@@ -1,51 +1,53 @@
 @model IEnumerable<Patitas_Felices.Models.MASCOTAS>
 
 @{
-    ViewData["Title"] = "Mascotas para Adoptar";
+    ViewData["Title"] = "Mascotas para adopatar";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Mascotas.css">     
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 }
 
 
-<div class="center">
-<div class="search_content">
-    <div class="input_cont">
-        <form  asp-controller="Mascotas" asp-action="Index">
-            <input type="text" name="searchString"  placeholder="Búsqueda"  >
-            <button id="btn" onclick="showSearch()">Búsqueda</button>
-        </form >
+<div class="fondo">
+    <img class="fondo__img">
+</div>
+
+
+
+<form asp-controller="Mascotas" asp-action="Index">
+    <div class="buscar">
+        <input type="text" name="searchString" placeholder="Buscar" required>
+        <div class="tree">
+            <i class="fas fa-search icon"></i>
+        </div>
     </div>
-</div>
-</div>
+</form>
 
 <h1>@ViewData["Title"]</h1>
+
+<a type="button" asp-controller="MascotasList" asp-action="Index">Gestionar Mascotas</a>
 <div class="container">
-<h1>@ViewData["Message"]</h1>
-<div class="row">
-    <div class="col">
-        <div id="product" class="mb-3">
-            <div class="row">
-                @foreach(var item in Model){
-                    <div class="col-sm-4">
-                        <div class="card-body">
-                            <div class="card-img-actions">
-                                <img class="img-responsive" width="200" height="250" src="data:image/jpeg;base64,@Convert.ToBase64String(item.Imagen)" alt="@item.Imagen"/>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.nombre)</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => item.tamaño)</p>
-                           <h5 class="card-title">@Html.DisplayFor(modelItem => item.raza)</h5>
-                            <a class="btn btn-primary" asp-action="Add" >Adoptar</a>
-                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.id">Ver</a>
-
-                        </div>
-                    </div>
-
-                }
+    @foreach (var item in Model)
+    {
+        <div class="card" style="--clr:#009688;">
+            <div class="imgBx">
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Imagen)" alt="@item.Imagen" />
             </div>
-
+            <div class="content">
+                <h2>@item.nombre</h2>
+                <p>@item.tamaño</p>
+                <h3>@item.raza</h3>
+                <a class="btn btn-primary" asp-action="Adopcion" asp-route-id="@item.id">Adoptar</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.id">Ver más</a>
+            </div>
         </div>
-
-    </div>
-
+    }
 </div>
-</div>
+
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/712575d4a5.js" crossorigin="anonymous"></script>
+    
+}

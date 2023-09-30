@@ -1,0 +1,26 @@
+body{
+    background-color: hsla(0, 0%, 44%, 0.205);
+}
+
+.form-container {
+    background-color: #f0f0f0; 
+    border: 1px solid #ccc; 
+    padding: 20px; 
+    width: 400px; 
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; 
+    background-image: url('/img/OIP.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover; /* La imagen se ajusta para cubrir todo el div */
+    background-position: center;
+    border: 1px;
+    border-radius: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px; 
+}

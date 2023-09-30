@@ -1,0 +1,14 @@
+.custom-button {
+    margin-bottom: 10px; /* Separación vertical entre los botones */
+    border: 2px solid #007bff; /* Borde azul de 2 píxeles */
+    background-color: transparent; /* Fondo transparente */
+    color: #007bff; /* Color de texto azul */
+    font-weight: bold; /* Texto en negrita */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave para el cambio de color */
+}
+
+/* Cambia el color de fondo y el color de texto al pasar el cursor sobre el botón */
+.custom-button:hover {
+    background-color: #007bff; /* Color de fondo azul al pasar el cursor */
+    color: #fff; /* Color de texto blanco al pasar el cursor */
+}

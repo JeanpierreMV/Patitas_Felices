@@ -1,0 +1,100 @@
+@model Patitas_Felices.Models.MASCOTAS
+@{
+    
+    int meses = Model.edad;
+    int años = meses / 12;
+    int mesesRestantes = meses % 12;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/DetailsMasc.css">     
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card border-primary mb-3 text-center" style="max-width: 50rem;">
+            <div class="card-body">
+                <div class="card-img-actions" >
+                   <img src="data:image/png;base64,@Convert.ToBase64String(Model.Imagen)" alt="Imagen de la mascota" />
+                </div>
+            </div>
+        </div>    
+    </div>
+    
+    <div class="col-sm-4 " >
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-body">
+                <h5 class="card-header text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@Html.DisplayFor(model => model.tipo)</font></font></h5>
+                    <br>
+                <h5 class="card-title">Nombre: @Html.DisplayFor(model => model.nombre)</h5>
+                <h5 class="card-text">Raza: @Html.DisplayFor(model => model.raza)</h5>
+                <h5 class="card-title">Sexo: @Html.DisplayFor(model => model.genero)</h5>
+                <h5 class="card-title">Edad: 
+                    @if (años > 0){
+                                @if (años == 1){
+                                    @:1 año
+                                }else{
+                                    @: @años años   
+                                }
+                                @if (mesesRestantes > 0){
+                                    @: y @mesesRestantes meses
+                                }
+                            }else{
+                                @: @meses meses
+                    }
+                </h5>
+                <h5 class="card-title">Tamaño: @Html.DisplayFor(model => model.tamaño)</h5>
+                <h5 class="card-text">Carácter: @Html.DisplayFor(model => model.caracter)</h5>          
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+              <a class="btn custom-button btn-block" asp-action="Adopcion" asp-route-id="@Model.id">Solicitar Adopción</a>
+            </div>
+            <div class="col-md-6">  
+                <button class="btn custom-button btn-block">Apadrinaje</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn custom-button btn-block">Quiero Conocerlo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-primary mb-3" style="max-width: 100%;">
+            <div class="card-body">
+                <h5 class="card-header text-center">Hisorial de salud</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Raza</th>
+                            <th scope="col">Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">25/07/2022</th>
+                            <td>Columna 1</td>
+                            <td>Columna 2</td>
+                            <td>Columna 3</td>
+                            
+                        </tr>
+                        <!-- Agrega más filas según sea necesario -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ @* <form asp-action="Add">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="AÑADIR" class="btn btn-outline-dark"/>        
+            </form> *@
