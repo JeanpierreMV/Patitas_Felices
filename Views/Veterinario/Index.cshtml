@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/css/home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
+    <link rel="stylesheet" href="~/css/home.css">
+}
+<body>
+<section class="home">
+    <div class="home__container container">
+        <div class="container" style="background-color: #f0e0b8; width: 500px; height: 500px; margin-left: 300px; padding: 30px;">
+            <h3 style="text-align: center; margin-bottom: 35px;">Panel Veterinario</h3>
+                <div class="row" style="margin-bottom: 50px;">
+                    <div class="col-md-4">
+                        <a class="btn btn-secondary" asp-area="" asp-controller="HistorialMedico" asp-action="Create">AGREGAR EXPEDIENTE MEXICO</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+@section Scripts {  
+    <script src="~/js/swiper-bundle.min.js"></script>
+    <script src="~/js/inicio.js"></script>
+
+    
+}

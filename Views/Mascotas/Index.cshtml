@@ -27,13 +27,13 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<a type="button" asp-controller="MascotasList" asp-action="Index">Gestionar Mascotas</a>
+
 <div class="container">
     @foreach (var item in Model)
     {
         <div class="card" style="--clr:#009688;">
             <div class="imgBx">
-                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Imagen)" alt="@item.Imagen" />
+                <img src="img/@item.Imagen" alt="@item.Imagen" />
             </div>
             <div class="content">
                 <h2>@item.nombre</h2>
@@ -48,6 +48,7 @@
 
 
 @section Scripts {
+
     <script src="https://kit.fontawesome.com/712575d4a5.js" crossorigin="anonymous"></script>
     
 }

@@ -31,7 +31,7 @@ namespace Patitas_Felices.Controllers
             return View();
         }
 
-        // POST: Cliente/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index([Bind("id,nombres,apellidos,apodo,domicilio,celular,dni")] CLIENTE cliente)

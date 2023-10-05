@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Patitas_Felices.Data;
@@ -11,9 +12,11 @@ using Patitas_Felices.Data;
 namespace Patitas_Felices.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231001035147_QuintaloneMigration")]
+    partial class QuintaloneMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,8 +372,9 @@ namespace Patitas_Felices.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Imagen")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
                     b.Property<string>("caracter")
                         .IsRequired()

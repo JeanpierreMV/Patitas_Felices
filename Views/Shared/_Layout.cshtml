@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="~/Patitas_Felices.styles.css" asp-append-version="true" />
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-xp5oHwoq2tf2B4ahxI3OLrWJrl5GKfrTbpZ7qOLj91Bm4Q0FAK0fTLMOh1GsBi8q" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     
     @await RenderSectionAsync("Styles", required: false)
 </head>
@@ -30,18 +34,18 @@
                         <li class="nav-item">
                             <a class="nav__button-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                            @if (User.Identity.IsAuthenticated)
-    {
+                    @if (User.Identity.IsAuthenticated) {
                         <li class="nav-item">
                             <a class="nav__button-link" asp-area="" asp-controller="Mascotas" asp-action="Index">Macotas</a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav__button-link" asp-area="" asp-controller="ClientesList" asp-action="Index">Clientes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav__button-link" asp-area="" asp-controller="HistoryMedic" asp-action="Index">Gestion Medica</a>
-                        </li>
-    }
+                        </li> *@
+                         <partial name="_MenuPartial" />
+                     }
                     </ul>
                     <div class="nav__button">
                     <partial name="_LoginPartial" />
@@ -73,6 +77,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha384-7oRbI5+zK+QFA0T9DxWwKz5g8EHGb5kRVjGfl/wWddE2LaoJFDRrdb+58KUf+dwW" crossorigin="anonymous"></script>
+
 
 
 

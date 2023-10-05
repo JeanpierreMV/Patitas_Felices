@@ -20,12 +20,11 @@ namespace Patitas_Felices.Models
         public int edad { get; set; }
         public string tamaño { get; set; }
         public string caracter { get; set; }
-        public byte[] Imagen { get; set; }
+        public string? Imagen { get; set; }
         public string  tipo{ get; set; }
         public string  Descripcion{ get; set; }
-
-       
-
+         [NotMapped]
+        public IFormFile ImagenUpload { get; set; }
 
     }
 }

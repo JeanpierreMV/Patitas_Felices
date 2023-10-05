@@ -1,0 +1,119 @@
+@model Patitas_Felices.Models.MASCOTAS
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+    @section Styles {
+    <link href="~/css/createProd.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+}
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container" style="margin-left: 200px;">
+
+        <h1>Registrar mascota</h1>
+
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Nombre</label>
+                        <input asp-for="nombre" class="form-control" />
+                        <span asp-validation-for="nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Raza</label>
+                        <input asp-for="raza" class="form-control" />
+                        <span asp-validation-for="raza" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Genero</label>
+                        <input asp-for="genero" class="form-control" />
+                        <span asp-validation-for="genero" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Edad</label>
+                        <input asp-for="edad" class="form-control" />
+                        <span asp-validation-for="edad" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tamaño</label>
+                        <input asp-for="tamaño" class="form-control" />
+                        <span asp-validation-for="tamaño" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Caracter</label>
+                        <input asp-for="caracter" class="form-control" />
+                        <span asp-validation-for="caracter" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tipo</label>
+                        <input asp-for="tipo" class="form-control" />
+                        <span asp-validation-for="tipo" class="text-danger"></span>
+                    </div>
+                       <div class="form-group">
+                        <label class="control-label">Descripcion</label>
+                        <input asp-for="Descripcion" class="form-control" />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Imagen">Imagen</label>
+                        <input type="file" id="Imagen" name="Imagen" class="file-input" >
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary my-3" />
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="col-md-6">
+                <img src="/img/registro.png" alt="">
+            </div>
+        </div>
+
+        <div>
+            <a class="btn btn-ligth" asp-action="Index"> 	&laquo;Volver</a>
+        </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+   
+    
+    <script>
+        // Configurar Filepond
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+
+        FilePond.setOptions({
+            allowMultiple: false,
+            acceptedFileTypes: ['image/*'],
+            server: {
+                url: './upload', 
+                process: {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '@Html.AntiForgeryToken()'
+                    },
+                    onload: (response) => {
+                        
+                        console.log(response);
+                    }
+                }
+            }
+        });
+
+        FilePond.create(document.querySelector('#Imagen'));
+    </script>
+}
