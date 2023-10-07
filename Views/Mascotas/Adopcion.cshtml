@@ -53,13 +53,29 @@
             <label for="campo3">Porque desea adoptar:</label><br>
             <input type="text" id="campo3" name="campo3"><br>
             </div>
-            <input type="submit" value="Enviar">
+            <input id="openModal" type="submit" value="Enviar">
 
         </form>
 
     </section>
 
+
+    <div id="modal" class="modal-container">
+        <div class="modal-content">
+           <img src="/img/check.png" alt="" class="half-out">
+            <h2>Se ha enviado la solicitud Exitosamente</h2>
+            <p> Gracias por adoptar y no comprar </p>
+            <p> espero que nadie lea esto xdd </p>
+            <div id="close" class="close">
+                <p>Cerrar</p>
+            </div>
+
+
+        </div>
+    </div>
+
 @section Scripts {
+     <script src="~/js/modal.js"></script>
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/solicitarAdo.js"></script>
     
