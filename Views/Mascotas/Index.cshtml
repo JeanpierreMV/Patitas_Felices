@@ -33,7 +33,7 @@
     {
         <div class="card" style="--clr:#009688;">
             <div class="imgBx">
-                <img src="img/@item.Imagen" alt="@item.Imagen" />
+               <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Imagen)" alt="@item.Imagen" />
             </div>
             <div class="content">
                 <h2>@item.nombre</h2>

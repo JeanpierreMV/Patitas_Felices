@@ -19,7 +19,18 @@ namespace Patitas_Felices.Models
         public byte[] D_medicinas { get; set; }
         public byte[] D_tratamientos { get; set; }
         public string observaciones { get; set; }
+
         public MASCOTAS MASCOTAS{ get; set; }
+
+         [NotMapped]
+        public IFormFile? fileMedicinas{ get; set; }
+
+          [NotMapped]
+        public IFormFile? fileTratamientos{ get; set; }
+
+         [NotMapped]
+        public IFormFile? ImagenUp{ get; set; }
+      
 
 
     }

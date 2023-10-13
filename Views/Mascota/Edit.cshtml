@@ -4,9 +4,9 @@
 @inject UserManager<IdentityUser> UserManager
 
     @section Styles {
-    <link href="~/css/createProd.css" rel="stylesheet" />
+    @* <link href="~/css/createProd.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" /> *@
 }
 
 
@@ -20,9 +20,8 @@
          <hr />
         <div class="row">
             <div class="col-md-6">
-                <form asp-action="Edit" >
+             <form asp-action="Edit" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                     <input type="hidden" asp-for="id" />
                     <div class="form-group">
                         <label class="control-label">Nombre</label>
                         <input asp-for="nombre" class="form-control" />
@@ -58,18 +57,33 @@
                         <input asp-for="tipo" class="form-control" />
                         <span asp-validation-for="tipo" class="text-danger"></span>
                     </div>
-                        <div class="form-group">
-                            <label class="control-label">Descripcion</label>
-                            <input asp-for="Descripcion" class="form-control" />
-                            <span asp-validation-for="Descripcion" class="text-danger"></span>
-                        </div>
+                       <div class="form-group">
+                        <label class="control-label">Descripcion</label>
+                        <input asp-for="Descripcion" class="form-control" />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
                     <div class="form-group">
-                        <label for="Imagen">Imagen</label>
-                        <input type="file" id="Imagen" name="Imagen" class="file-input" >
+                        <label class="control-label">Imagen actual</label>
+                        <img src="data:image/png;base64, @Convert.ToBase64String(Model.Imagen)" alt="Imagen de la mascota" />
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Actualizar" class="btn btn-primary my-3" />
+                        <label asp-for="ImagenUpload" class="control-label"></label>
+                        <input asp-for="ImagenUpload" type="file" class="form-control-file" id="imagenInput" />
+                        <span asp-validation-for="ImagenUpload" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <img id="imagenPreview" src="#" alt="Vista previa de la imagen" style="display: none; max-width: 100px; max-height: 100px;" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Estado</label>
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary my-3" />
                     </div>
                     
                 </form>
@@ -89,31 +103,25 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-   
-    
+
     <script>
-        // Configurar Filepond
-        FilePond.registerPlugin(FilePondPluginImagePreview);
+    document.getElementById('imagenInput').addEventListener('change', function () {
+        var fileInput = this;
+        var imagePreview = document.getElementById('imagenPreview');
+        
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
 
-        FilePond.setOptions({
-            allowMultiple: false,
-            acceptedFileTypes: ['image/*'],
-            server: {
-                url: './upload', 
-                process: {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '@Html.AntiForgeryToken()'
-                    },
-                    onload: (response) => {
-                        
-                        console.log(response);
-                    }
-                }
-            }
-        });
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
 
-        FilePond.create(document.querySelector('#Imagen'));
-    </script>
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            imagePreview.style.display = 'none';
+        }
+    });
+</script>
+
 }

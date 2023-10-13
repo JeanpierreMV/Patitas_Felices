@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Patitas_Felices.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class reinicMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,28 @@ namespace Patitas_Felices.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mascotas",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    nombre = table.Column<string>(type: "text", nullable: false),
+                    raza = table.Column<string>(type: "text", nullable: false),
+                    genero = table.Column<string>(type: "text", nullable: false),
+                    edad = table.Column<int>(type: "integer", nullable: false),
+                    tamaño = table.Column<string>(type: "text", nullable: false),
+                    caracter = table.Column<string>(type: "text", nullable: false),
+                    Imagen = table.Column<byte[]>(type: "bytea", nullable: false),
+                    tipo = table.Column<string>(type: "text", nullable: false),
+                    Descripcion = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mascotas", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,6 +179,98 @@ namespace Patitas_Felices.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Cliente",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    nombres = table.Column<string>(type: "text", nullable: false),
+                    apellidos = table.Column<string>(type: "text", nullable: false),
+                    apodo = table.Column<string>(type: "text", nullable: false),
+                    domicilio = table.Column<string>(type: "text", nullable: false),
+                    celular = table.Column<int>(type: "integer", nullable: false),
+                    dni = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliente", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Cliente_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "H_MEDICO",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Tip_Sangre = table.Column<string>(type: "text", nullable: false),
+                    Fecha_reg = table.Column<string>(type: "text", nullable: false),
+                    Adj_img = table.Column<byte[]>(type: "bytea", nullable: false),
+                    D_medicinas = table.Column<byte[]>(type: "bytea", nullable: false),
+                    D_tratamientos = table.Column<byte[]>(type: "bytea", nullable: false),
+                    observaciones = table.Column<string>(type: "text", nullable: false),
+                    MASCOTASid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_H_MEDICO", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_H_MEDICO_Mascotas_MASCOTASid",
+                        column: x => x.MASCOTASid,
+                        principalTable: "Mascotas",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ADOPCION",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Fot_DNI = table.Column<byte[]>(type: "bytea", nullable: false),
+                    R_luz = table.Column<byte[]>(type: "bytea", nullable: false),
+                    R_agua = table.Column<byte[]>(type: "bytea", nullable: false),
+                    Q_familiares = table.Column<int>(type: "integer", nullable: false),
+                    Q_niños = table.Column<int>(type: "integer", nullable: false),
+                    Desc_Domicilio = table.Column<string>(type: "text", nullable: false),
+                    Razon = table.Column<string>(type: "text", nullable: false),
+                    CLIENTEid = table.Column<int>(type: "integer", nullable: false),
+                    MASCOTASid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ADOPCION", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ADOPCION_Cliente_CLIENTEid",
+                        column: x => x.CLIENTEid,
+                        principalTable: "Cliente",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ADOPCION_Mascotas_MASCOTASid",
+                        column: x => x.MASCOTASid,
+                        principalTable: "Mascotas",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ADOPCION_CLIENTEid",
+                table: "ADOPCION",
+                column: "CLIENTEid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ADOPCION_MASCOTASid",
+                table: "ADOPCION",
+                column: "MASCOTASid");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -193,11 +307,24 @@ namespace Patitas_Felices.Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cliente_UserId",
+                table: "Cliente",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_H_MEDICO_MASCOTASid",
+                table: "H_MEDICO",
+                column: "MASCOTASid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ADOPCION");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -214,7 +341,16 @@ namespace Patitas_Felices.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "H_MEDICO");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Mascotas");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

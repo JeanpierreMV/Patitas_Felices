@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
+        @* <div class="col-md-10">
             <!-- Elementos a la izquierda -->
             <div class="search_content">
                 <div class="input_cont">
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <!-- Agrega aquí otros elementos que quieres mostrar a la izquierda -->
-        </div>
+        </div> *@
         <div class="col-md-2 text-left">
             <!-- Botón de crear a la derecha -->
             <a href="@Url.Action("Create", "HistoryMedic")" class="btn btn-primary">Crear Historia</a>
@@ -46,9 +46,11 @@
                 <table class="table mx-auto">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Tipo sangre</th>
                             <th>Fecha Registro</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Raza</th>
+                            <th>Tipo sangre</th>
                             <th>Observaciones</th>
                             <th>Acciones</th>
                         </tr>
@@ -56,12 +58,14 @@
                     <tbody>
                         @foreach(var item in Model){
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.id)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Tip_Sangre)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Fecha_reg)</td>
+                                <td>@Html.DisplayFor(modelItem => item.MASCOTAS.nombre)</td> 
+                                <td>@Html.DisplayFor(modelItem => item.MASCOTAS.tipo)</td>  
+                                <td>@Html.DisplayFor(modelItem => item.MASCOTAS.raza)</td>   
+                                <td>@Html.DisplayFor(modelItem => item.Tip_Sangre)</td>                                
                                 <td>@Html.DisplayFor(modelItem => item.observaciones)</td>
                                 <td>
-                                    <a class="btn btn-primary" asp-action="Edit">editar</a>
+                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.id">editar</a>
                                     <a class="btn btn-info" asp-action="Details" asp-route-id="@item.id">Ver</a>
                                 </td>
                             </tr>

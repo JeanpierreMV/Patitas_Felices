@@ -13,7 +13,7 @@ namespace Patitas_Felices.Controllers
 {
     public class MascotaController : Controller
     {
-        private readonly ApplicationDbContext _context;
+       private readonly ApplicationDbContext _context;
 
         public MascotaController(ApplicationDbContext context)
         {
@@ -46,70 +46,113 @@ namespace Patitas_Felices.Controllers
             return View(mascotas);
         }
 
-        // GET: Producto/Create
+
+
+
+
+
+
+
+
+
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Producto/Create
+      
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,nombre,raza,genero,edad,tamaño,caracter,Imagen,tipo,Descripcion")] MASCOTAS mascotas)
+        public async Task<IActionResult> Create(MASCOTAS mascota)
         {
-          
-            if (ModelState.IsValid)
-            {
-                
-                _context.Add(mascotas);
+            // if (ModelState.IsValid) {
+                if (mascota.ImagenUpload != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await mascota.ImagenUpload.CopyToAsync(memoryStream);
+                        mascota.Imagen = memoryStream.ToArray();
+                    }
+                }
+
+                _context.Add(mascota);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(mascotas);
+
+
+            // }else{
+            //      // Mostrar un mensaje de error
+            //     ViewBag.ErrorMessage = "Ha ocurrido un error. Por favor, verifica los datos ingresados.";
+            //     return View(mascota);
+
+            // }
+
+           
         }
+
+
+
+
+
+
+
+
+
 
 
         // GET: Producto/Edit/5
         
         public async Task<IActionResult>Edit(int? id)
         {
-            if (id == null || _context.MASCOTAS == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var productos = await _context.MASCOTAS.FindAsync(id);
-            if (productos == null)
+            var mascotas = await _context.MASCOTAS.FindAsync(id);
+            if (mascotas == null)
             {
                 return NotFound();
             }
-            return View(productos);
+            return View(mascotas);
         }
 
-        // POST: Producto/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Edit(int id, [Bind("id,nombre,raza,genero,edad,tamaño,caracter,Imagen,tipo,Descripcion")] MASCOTAS mascotas)
+        public async Task<IActionResult> Edit(int id, MASCOTAS mascota, IFormFile ImagenUpload)
         {
-            if (id != mascotas.id)
+            if (id != mascota.id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+
                 try
                 {
-                    _context.Update(mascotas);
+                    if (ImagenUpload != null)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await ImagenUpload.CopyToAsync(memoryStream);
+                            mascota.Imagen = memoryStream.ToArray();
+                        }
+                    }  else   {
+
+                        var mascotaOriginal = await _context.MASCOTAS.AsNoTracking().FirstOrDefaultAsync(m => m.id == id);
+                        mascota.Imagen = mascotaOriginal.Imagen;
+                    }
+                    _context.Entry(mascota).Property("Imagen").IsModified = false;
+
+                    _context.Update(mascota);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductosExists(mascotas.id))
+                    if (!MascotaExists(mascota.id))
                     {
                         return NotFound();
                     }
@@ -119,9 +162,20 @@ namespace Patitas_Felices.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(mascotas);
+
         }
+
+        private bool MascotaExists(int id)
+        {
+            return _context.MASCOTAS.Any(e => e.id == id);
+        }
+
+
+
+
+
+
+
 
         // GET: Producto/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -21,7 +21,9 @@ namespace Patitas_Felices.Models
         public string Desc_Domicilio { get; set; }
         public string Razon { get; set; }
         public CLIENTE  CLIENTE{ get; set; }
-        public MASCOTAS  MASCOTAS{ get; set; }
+
+        public MASCOTAS MASCOTAS{ get; set; }
+      
 
 
     }

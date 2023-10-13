@@ -3,16 +3,19 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-    @section Styles {
-    <link href="~/css/createProd.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-}
 
 
 @{
     ViewData["Title"] = "Create";
 }
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
 
 <div class="container" style="margin-left: 200px;">
 
@@ -21,7 +24,7 @@
         <hr />
         <div class="row">
             <div class="col-md-6">
-                <form asp-action="Create">
+               <form asp-action="Create" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label class="control-label">Nombre</label>
@@ -64,8 +67,15 @@
                         <span asp-validation-for="Descripcion" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="Imagen">Imagen</label>
-                        <input type="file" id="Imagen" name="Imagen" class="file-input" >
+                        <label asp-for="ImagenUpload" class="control-label"></label>
+                        <input asp-for="ImagenUpload" type="file" class="form-control-file" />
+                        <span asp-validation-for="ImagenUpload" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Estado</label>
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
@@ -89,31 +99,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-   
-    
-    <script>
-        // Configurar Filepond
-        FilePond.registerPlugin(FilePondPluginImagePreview);
 
-        FilePond.setOptions({
-            allowMultiple: false,
-            acceptedFileTypes: ['image/*'],
-            server: {
-                url: './upload', 
-                process: {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '@Html.AntiForgeryToken()'
-                    },
-                    onload: (response) => {
-                        
-                        console.log(response);
-                    }
-                }
-            }
-        });
-
-        FilePond.create(document.querySelector('#Imagen'));
-    </script>
 }

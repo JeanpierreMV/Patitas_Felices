@@ -369,7 +369,12 @@ namespace Patitas_Felices.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Imagen")
+                    b.Property<byte[]>("Imagen")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("caracter")

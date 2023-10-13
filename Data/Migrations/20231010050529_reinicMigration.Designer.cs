@@ -12,8 +12,8 @@ using Patitas_Felices.Data;
 namespace Patitas_Felices.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231001035147_QuintaloneMigration")]
-    partial class QuintaloneMigration
+    [Migration("20231010050529_reinicMigration")]
+    partial class reinicMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -375,6 +375,10 @@ namespace Patitas_Felices.Data.Migrations
                     b.Property<byte[]>("Imagen")
                         .IsRequired()
                         .HasColumnType("bytea");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("caracter")
                         .IsRequired()

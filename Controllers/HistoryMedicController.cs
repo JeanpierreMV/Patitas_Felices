@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Dynamic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace appejemplo2.Controllers
 {
@@ -23,146 +24,271 @@ namespace appejemplo2.Controllers
             _logger = logger;
             _userManager= userManager;
         } 
-        public async Task<IActionResult> Index(string searchString)
+
+
+        public async Task<IActionResult> Index()
         {
-            try
-            {
-                IQueryable<H_MEDICO> historyMedicQuery = _context.H_MEDICO;
+            var historiasMedicas = _context.H_MEDICO.Include(h => h.MASCOTAS).ToList();
 
-                if (!String.IsNullOrEmpty(searchString))
+            historiasMedicas = historiasMedicas.OrderByDescending(h => ConvertToDate(h.Fecha_reg)).ToList();
+
+            return View(historiasMedicas);
+        }
+        private DateTime ConvertToDate(string fecha)
+        {
+            
+            if (fecha.Length >= 8)
+            {
+                string formattedDate = $"20{fecha.Substring(6, 2)}-{fecha.Substring(3, 2)}-{fecha.Substring(0, 2)}";
+                if (DateTime.TryParse(formattedDate, out DateTime date))
                 {
-                    historyMedicQuery = historyMedicQuery.Where(s => s.observaciones.Contains(searchString));
+                    return date;
                 }
-
-                var historyMedic = await historyMedicQuery.ToListAsync();
-                return View(historyMedic);
             }
-            catch (Exception ex)
-            {
-                // Manejar cualquier excepción aquí, como registrarla para su posterior revisión.
-                // Log.Error(ex, "Ocurrió un error al buscar historias médicas.");
-                return RedirectToAction("Error", "Home"); // Redirige a una página de error genérica.
-            }
+          
+            return DateTime.MinValue;
         }
 
-        public async Task<IActionResult> Details(int? id)
+
+             public async Task<IActionResult> Details(int? id)
         {
-            try
-            {
+           
                 if (id == null)
                 {
                     return NotFound();
                 }
+               
+                H_MEDICO hMedico = await _context.H_MEDICO
+                    .Include(h => h.MASCOTAS) 
+                    .FirstOrDefaultAsync(h => h.id == id);
 
-                var objHistoryMedic = await _context.H_MEDICO.FindAsync(id);
-                if (objHistoryMedic == null)
+                if (hMedico == null)
                 {
                     return NotFound();
                 }
 
-                return View(objHistoryMedic);
-            }
-            catch (Exception ex)
-            {
-                // Manejar cualquier excepción aquí, como registrarla para su posterior revisión.
-                // Log.Error(ex, "Ocurrió un error al obtener los detalles de la historia médica.");
-                return RedirectToAction("Error", "Home"); // Redirige a una página de error genérica.
-            }
+                   return View(hMedico);
+        
         }
 
+       
 
-        private List<MASCOTAS> ObtenerListaDeMascotas()
-        {
-            // Utiliza Entity Framework para obtener la lista de mascotas desde la base de datos
-            return _context.MASCOTAS.ToList();
-        }
+
+
+
 
         // GET: HistoryMedic/Create
-        public IActionResult Create()
+         public IActionResult Create()
         {
-            var viewModel = new MascotaMedicoViewModel();
-            viewModel.Medico = new H_MEDICO();
-            viewModel.Mascotas = ObtenerListaDeMascotas();
-            return View(viewModel);
+            // Obtén la lista de mascotas desde la base de datos
+            var mascotas = _context.MASCOTAS.ToList();
+
+            // Construye una lista de elementos SelectListItem para usar en el formulario
+            ViewBag.Mascotas = new SelectList(mascotas, "id", "nombre");
+
+            return View();
         }
 
-        // POST: HistoryMedic/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(MascotaMedicoViewModel viewModel)
+        public IActionResult Create(H_MEDICO hMedico, IFormFile ImagenUp, IFormFile fileMedicinas, IFormFile fileTratamientos)
         {
-            if (ModelState.IsValid)
+            if (ImagenUp != null && ImagenUp.Length > 0)
             {
-                var historyMedic = viewModel.Medico;
-                historyMedic.MASCOTAS = await _context.MASCOTAS.FindAsync(viewModel.Medico.MASCOTAS.id);
-                
-                if (historyMedic.MASCOTAS == null)
+                using (var ms = new MemoryStream())
                 {
-                    ModelState.AddModelError(nameof(viewModel.Medico.MASCOTAS.id), "Mascota no válida.");
-                    viewModel.Mascotas = ObtenerListaDeMascotas();
-                    return View(viewModel);
+                    ImagenUp.CopyTo(ms);
+                    hMedico.Adj_img = ms.ToArray();
                 }
 
-                _context.Add(historyMedic);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (fileMedicinas != null && fileMedicinas.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        fileMedicinas.CopyTo(ms);
+                        hMedico.D_medicinas = ms.ToArray();
+                    }
+                }
+
+                if (fileTratamientos != null && fileTratamientos.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        fileTratamientos.CopyTo(ms);
+                        hMedico.D_tratamientos = ms.ToArray();
+                    }
+                }
+
+                // Asegúrate de asignar una mascota válida a la historia médica.
+                MASCOTAS mascotaSeleccionada = _context.MASCOTAS.FirstOrDefault(m => m.id == hMedico.MASCOTAS.id);
+
+                if (mascotaSeleccionada != null)
+                {
+                    hMedico.MASCOTAS = mascotaSeleccionada;
+
+                    // Aquí puedes agregar la lógica para guardar la historia médica en la base de datos
+                    _context.H_MEDICO.Add(hMedico);
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index"); // Redirige a donde quieras después de guardar
+                }
             }
 
-            viewModel.Mascotas = ObtenerListaDeMascotas();
-            return View(viewModel);
+            // Si el modelo no es válido o la mascota no se encontró, vuelve a cargar el formulario con los errores
+            var mascotas = _context.MASCOTAS.ToList();
+            ViewBag.Mascotas = new SelectList(mascotas, "id", "nombre");
+
+            return View(hMedico);
         }
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        H_MEDICO hMedico = await _context.H_MEDICO.FindAsync(id);
+
+        if (hMedico == null)
+        {
+            return NotFound();
+        }
+
+        // Obtén la lista de mascotas desde la base de datos
+        var mascotas = await _context.MASCOTAS.ToListAsync();
+
+        // Construye una lista de elementos SelectListItem para usar en el formulario
+        ViewBag.Mascotas = new SelectList(mascotas, "id", "nombre");
+
+        return View(hMedico);
+    }
+
+    // POST: HMedico/Edit/5
+// POST: HMedico/Edit/5
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, H_MEDICO hMedico, IFormFile ImagenUp, IFormFile fileMedicinas, IFormFile fileTratamientos)
+{
+    if (id != hMedico.id)
+    {
+        return NotFound();
+    }
+
+    try
+    {
+        var existingHMedico = await _context.H_MEDICO
+            .AsNoTracking()
+            .Include(h => h.MASCOTAS)
+            .FirstOrDefaultAsync(h => h.id == id);
+
+        if (existingHMedico != null)
+        {
+            // Actualiza los campos modificables
+            existingHMedico.Tip_Sangre = hMedico.Tip_Sangre;
+            existingHMedico.Fecha_reg = hMedico.Fecha_reg;
+            existingHMedico.observaciones = hMedico.observaciones;
+
+            // Actualiza la imagen si se proporciona una nueva
+            if (ImagenUp != null && ImagenUp.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    ImagenUp.CopyTo(ms);
+                    existingHMedico.Adj_img = ms.ToArray();
+                }
+            }
+            else
+            {
+                // Evita la modificación si no se proporciona una nueva imagen
+                _context.Entry(existingHMedico).Property("Adj_img").IsModified = false;
+            }
+
+            // Actualiza los archivos de medicinas si se proporciona uno nuevo
+            if (fileMedicinas != null && fileMedicinas.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    fileMedicinas.CopyTo(ms);
+                    existingHMedico.D_medicinas = ms.ToArray();
+                }
+            }
+            else
+            {
+                // Evita la modificación si no se proporciona un nuevo archivo de medicinas
+                _context.Entry(existingHMedico).Property("D_medicinas").IsModified = false;
+            }
+
+            // Actualiza los archivos de tratamientos si se proporciona uno nuevo
+            if (fileTratamientos != null && fileTratamientos.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    fileTratamientos.CopyTo(ms);
+                    existingHMedico.D_tratamientos = ms.ToArray();
+                }
+            }
+            else
+            {
+                // Evita la modificación si no se proporciona un nuevo archivo de tratamientos
+                _context.Entry(existingHMedico).Property("D_tratamientos").IsModified = false;
+            }
+
+           
+
+            _context.Update(existingHMedico);
+            await _context.SaveChangesAsync();
+        }
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        if (!H_MEDICOExists(hMedico.id))
+        {
+            return NotFound();
+        }
+        else
+        {
+            throw;
+        }
+    }
+    return RedirectToAction("Index"); // Redirige a donde quieras después de guardar
+}
+
+    private bool H_MEDICOExists(int id)
+    {
+        return _context.H_MEDICO.Any(e => e.id == id);
+    }
+
+
+
+
+
 
         
-        // GET: HistoryMedic/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.H_MEDICO == null)
-            {
-                return NotFound();
-            }
 
-            var historyMedic = await _context.H_MEDICO.FindAsync(id);
-            if (historyMedic == null)
-            {
-                return NotFound();
-            }
-            return View(historyMedic);
-        }
 
-        // POST: HistoryMedic/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Tip_Sangre,Fecha_reg,Adj_img,D_medicinas,D_tratamientos,observaciones")] H_MEDICO historyMedic)
-        {
-            if (id != historyMedic.id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(historyMedic);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!historyMedicExists(historyMedic.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(historyMedic);
-        }
+
+
+
+
+
+
+
+
         
         // GET: HistoryMedic/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -206,5 +332,27 @@ namespace appejemplo2.Controllers
           return (_context.H_MEDICO?.Any(e => e.id == id)).GetValueOrDefault();
         }
 
+
+
+
+
+
+
+    
+
+
+        // private List<MASCOTAS> ObtenerListaDeMascotas()
+        // {
+        //     // Utiliza Entity Framework para obtener la lista de mascotas desde la base de datos
+        //     return _context.MASCOTAS.ToList();
+        // }
+
+
+
+
+
+
     }
+   
+
 }

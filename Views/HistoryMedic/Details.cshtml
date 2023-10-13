@@ -1,0 +1,101 @@
+@model Patitas_Felices.Models.H_MEDICO
+
+@{
+    ViewData["Title"] = "DETALLE DEL HISTORIAL MEDICO DE LA MASCOTA";
+}
+
+@section Styles {
+       <link rel="stylesheet" href="~/css/Det_HM.css">
+}
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <h2>Detalles de Datos Clínicos</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Tip_Sangre)</dt>
+        <dd>@Html.DisplayFor(model => model.Tip_Sangre)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Fecha_reg)</dt>
+        <dd>@Html.DisplayFor(model => model.Fecha_reg)</dd>
+
+        <dt>Imagen</dt>
+        <dd>
+            <img src="data:image/png;base64, @Convert.ToBase64String(Model.Adj_img)" alt="Imagen de la mascota" />
+        </dd>
+
+            <dt>Medicinas</dt>
+            <dd>
+                <div id="pdfMedicinas" style="display: none;">
+                    <embed src="data:application/pdf;base64, @Convert.ToBase64String(Model.D_medicinas)" type="application/pdf" width="100%" height="500px" />
+                </div>
+                <button id="btnMostrarMedicinas">Ver Medicinas</button>
+            </dd>
+
+            <dt>Tratamientos</dt>
+            <dd>
+                <div id="pdfTratamientos" style="display: none;">
+                    <embed src="data:application/pdf;base64, @Convert.ToBase64String(Model.D_tratamientos)" type="application/pdf" width="100%" height="500px" />
+                </div>
+                <button id="btnMostrarTratamientos">Ver Tratamientos</button>
+            </dd>
+
+
+
+
+
+        <dt>@Html.DisplayNameFor(model => model.observaciones)</dt>
+        <dd>@Html.DisplayFor(model => model.observaciones)</dd>
+    </dl>
+</div>
+
+<div>
+    <h2>Información de la Mascota</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nombre</dt>
+        <dd>@Model.MASCOTAS.nombre</dd>
+
+        <dt>Tipo</dt>
+        <dd>@Model.MASCOTAS.tipo</dd>
+
+        <dt>Raza</dt>
+        <dd>@Model.MASCOTAS.raza</dd>
+
+        <dt>Edad</dt>
+        <dd>@Model.MASCOTAS.edad meses</dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Volver a la Lista", "Index")
+</p>
+
+@section Scripts {  
+ <script>
+    var mostrarMedicinas = false;
+    var mostrarTratamientos = false;
+
+    document.getElementById("btnMostrarMedicinas").addEventListener("click", function () {
+        if (mostrarMedicinas) {
+            document.getElementById("pdfMedicinas").style.display = "none";
+            mostrarMedicinas = false;
+        } else {
+            document.getElementById("pdfMedicinas").style.display = "block";
+            mostrarMedicinas = true;
+        }
+    });
+
+    document.getElementById("btnMostrarTratamientos").addEventListener("click", function () {
+        if (mostrarTratamientos) {
+            document.getElementById("pdfTratamientos").style.display = "none";
+            mostrarTratamientos = false;
+        } else {
+            document.getElementById("pdfTratamientos").style.display = "block";
+            mostrarTratamientos = true;
+        }
+    });
+</script>
+
+    
+}
