@@ -21,29 +21,77 @@ namespace Patitas_Felices.Controllers
         private readonly UserManager<IdentityUser> _userManager;
 
          public ProfileController(ILogger<ProfileController> logger,ApplicationDbContext context,UserManager<IdentityUser> userManager)
-    {
+        {
             _logger = logger;
             _context = context;
             _userManager = userManager;
-    }
-        public IActionResult Index()
-        {
-            return View();
         }
+
+        public async Task<IActionResult> Index()
+        {
+            // Obtiene el usuario actual
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account"); // Redirige al inicio de sesión si el usuario no está regitrado
+            }
+            // Busca el perfil del cliente asociado al usuario
+             var userName = User.Identity?.Name;
+            var cliente = _context.CLIENTE.FirstOrDefault(c => c.User.UserName == userName);
+
+             if (cliente == null)
+            {
+                cliente = new CLIENTE(); // Crea un nuevo perfil si no existe
+            }
+
+       
+
+            return View(cliente);
+        }
+
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index([Bind("id,nombres,apellidos,apodo,domicilio,celular,dni")] CLIENTE cliente)
+        public async Task<IActionResult> Index(CLIENTE cliente)
         {
-            if (ModelState.IsValid)
+            // Obtiene el usuario actual
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Login", "Account"); // Redirige al inicio de sesión si el usuario no está autenticado
             }
-            return View(cliente);
+
+            // Asigna el usuario al perfil del cliente
+            var userName = User.Identity?.Name;
+            var cliente1 = _context.CLIENTE.FirstOrDefault(c => c.User.UserName == userName);
+
+            // Si el cliente no existe, crea uno nuevo
+            if (cliente1 == null)
+            {
+                cliente.User = user;
+                _context.CLIENTE.Add(cliente);
+            }
+            else
+            {
+                // Actualiza los valores del cliente existente con los valores del cliente enviado
+                cliente1.nombres = cliente.nombres;
+                cliente1.apellidos = cliente.apellidos;
+                cliente1.apodo = cliente.apodo;
+                cliente1.domicilio = cliente.domicilio;
+                cliente1.celular = cliente.celular;
+                cliente1.dni = cliente.dni;
+            }
+
+            _context.SaveChanges();
+
+            // Redirige de nuevo a la vista de perfil
+            return RedirectToAction("Index");
         }
+        
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,10 +1,22 @@
-@model Patitas_Felices.Models.MASCOTAS
+@model Patitas_Felices.Models.ADOPCION
 @{
      ViewData["Title"] = "Adopcion";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/Adopcion.css">     
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@modelError.ErrorMessage</li>
+            }
+        </ul>
+    </div>
 }
 
 <section class="form_wrap">
@@ -20,40 +32,63 @@
             </section>
         </section>
 
-        <form action="/ruta_a_tu_servidor" method="post" class="form_contact">
-            <div>
-            <label for="campo1">Antecedentes Penales:</label><br>
-            <input type="file" id="archivo1" name="archivo1"><br>
+       <form asp-action="Adopcion" method="post" enctype="multipart/form-data"  >
 
-            <label for="campo2">Foto de DNI:</label><br>
-            <input type="file" id="archivo2" name="archivo2"><br>
 
-            <label for="campo3">Recibo de Luz:</label><br>
-            <input type="file" id="archivo3" name="archivo3"><br>
+          
+                <div class="form-group">
+                    <label asp-for="AntPenles" class="control-label">Antecendentes penales</label>
+                    <input asp-for="AntPenles" type="file" class="form-control-file" />
+                    <span asp-validation-for="AntPenles" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImagenDNI" class="control-label">Foto de DNI</label>
+                    <input asp-for="ImagenDNI" type="file" class="form-control-file" />
+                    <span asp-validation-for="ImagenDNI" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fileLuz" class="control-label">Recibo de Luz</label>
+                    <input asp-for="fileLuz" type="file" class="form-control-file" />
+                    <span asp-validation-for="fileLuz" class="text-danger"></span>
+                </div>
+                 <div class="form-group">
+                    <label asp-for="fileAgua" class="control-label">Recibo de Agua</label>
+                    <input asp-for="fileAgua" type="file" class="form-control-file" />
+                    <span asp-validation-for="fileAgua" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Q_familiares" class="control-label">Miembros de la Familia:</label>
+                    <input asp-for="Q_familiares"  class="form-control" />
+                    <span asp-validation-for="Q_familiares" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Q_niños" class="control-label">Cantidad de niños:</label>
+                    <input asp-for="Q_niños"  class="form-control" />
+                    <span asp-validation-for="Q_niños" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Domicilio" class="control-label">Domicilio:</label>
+                    <input asp-for="Domicilio"  class="form-control" />
+                    <span asp-validation-for="Domicilio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Desc_Domicilio" class="control-label">Descripción de Domicilio:</label>
+                    <input asp-for="Desc_Domicilio"  class="form-control" />
+                    <span asp-validation-for="Desc_Domicilio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Razon" class="control-label">Porque desea adoptar</label>
+                    <input asp-for="Razon"  class="form-control" />
+                    <span asp-validation-for="Razon" class="text-danger"></span>
+                </div>
 
-            <label for="campo4">Recibo de Agua:</label><br>
-            <input type="file" id="archivo4" name="archivo4"><br>
 
-            <label for="campo5">Miembros de la Familia:</label><br>
-            <input type="text" id="campo5" name="campo5"><br>
+      
 
-            <label for="campo6">Cantidad de niños:</label><br>
-            <input type="text" id="campo6" name="campo6"><br>   
-            </div>
-        </form>
 
-         <form action="/ruta_a_tu_servidor" method="post" class="form_contact">
-            <div>
-            <label for="campo1">Domicilio:</label><br>
-            <input type="text" id="campo1" name="campo1"><br>
-
-            <label for="campo2">Descripción de domicilio:</label><br>
-            <input type="text" id="campo2" name="campo2"><br>
-
-            <label for="campo3">Porque desea adoptar:</label><br>
-            <input type="text" id="campo3" name="campo3"><br>
-            </div>
-            <input id="openModal" type="submit" value="Enviar">
+              <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary my-3" />
+                    </div>
 
         </form>
 
@@ -69,7 +104,7 @@
             <div id="close" class="close">
                 <p>Cerrar</p>
             </div>
-
+id="openModal"
 
         </div>
     </div>

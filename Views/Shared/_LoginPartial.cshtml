@@ -8,7 +8,7 @@
         { 
 
             <div class="dropdown col-9">
-                <input type="text" class="textbox" placeholder="Hello @(User.Identity?.Name)" readonly>
+                <input type="text" class="textbox" placeholder="@(User.Identity?.Name)" readonly>
                 <div class="option">
                     <a  asp-controller="Profile" asp-action="Index">
                     <div onclick="show('Datos Personales')"><ion-icon name="person-outline"></ion-icon>Datos Personales</div>
@@ -29,7 +29,7 @@
                 <div class="nav__button-link">
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                         asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                        <button type="submit" class="nav-link btn btn-link text-dark">Salir</button>
                     </form>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
             <div class="col-6">
                 <div class="nav__button-link">
-                    <a class="nav__button-ghost" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                    <a class="nav__button-ghost" asp-area="Identity" asp-page="/Account/Register">Registrar</a>
                 </div>
             </div>
 

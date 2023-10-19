@@ -28,7 +28,7 @@ namespace Patitas_Felices.Controllers
                           Problem("Entity set 'ApplicationDbContext.MASCOTAS'  is null.");
         }
 
-        // GET: Producto/Details/5
+      
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.MASCOTAS == null)
@@ -94,6 +94,7 @@ namespace Patitas_Felices.Controllers
         }
 
 
+        
 
 
 
@@ -103,7 +104,9 @@ namespace Patitas_Felices.Controllers
 
 
 
-        // GET: Producto/Edit/5
+
+
+
         
         public async Task<IActionResult>Edit(int? id)
         {
