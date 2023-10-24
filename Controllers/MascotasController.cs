@@ -71,97 +71,69 @@ namespace appejemplo2.Controllers
 
 
       
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Adopcion(ADOPCION adopcion, IFormFile ImagenDNI, IFormFile fileAgua, IFormFile fileLuz, IFormFile AntPenles, int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adopcion(ADOPCION adopcion, IFormFile ImagenDNI, IFormFile fileAgua, IFormFile fileLuz, IFormFile AntPenles , int? id)
+    var mascota = await _context.MASCOTAS.FindAsync(id);
+    var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
+
+    if (mascota == null)
+    {
+        return NotFound();
+    }
+
+    adopcion.CLIENTE = cliente;
+    adopcion.MASCOTAS = mascota;
+    adopcion.Estado = "pendiente";
+    
+    if (ImagenDNI != null && ImagenDNI.Length > 0)
+    {
+        using (var memoryStream = new MemoryStream())
         {
-           
-
- 
-           if (id == null)
-            {
-                ModelState.AddModelError(string.Empty, "ID de mascota nulo.");
-                return View(adopcion);
-            }
-
-            var mascota = await _context.MASCOTAS.FindAsync(id);
-            var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
-
-            if (mascota == null)
-            {
-                ModelState.AddModelError(string.Empty, "La mascota no se encontró en la base de datos.");
-                return View(adopcion);
-            }
-
-            if (cliente == null)
-            {
-                ModelState.AddModelError(string.Empty, "El cliente no se encontró en la base de datos.");
-                return View(adopcion);
-            }
-
-            if (ImagenDNI != null && ImagenDNI.Length > 0)
-            {
-                adopcion.Fot_DNI = ReadFileAsBytes(ImagenDNI);
-            }
-            else
-            {
-                ModelState.AddModelError("ImagenDNI", "El archivo ImagenDNI no se proporcionó o está vacío.");
-            }
-
-            if (fileLuz != null && fileLuz.Length > 0)
-            {
-                adopcion.R_luz = ReadFileAsBytes(fileLuz);
-            }
-            else
-            {
-                ModelState.AddModelError("fileLuz", "El archivo fileLuz no se proporcionó o está vacío.");
-            }
-
-            if (fileAgua != null && fileAgua.Length > 0)
-            {
-                adopcion.R_agua = ReadFileAsBytes(fileAgua);
-            }
-            else
-            {
-                ModelState.AddModelError("fileAgua", "El archivo fileAgua no se proporcionó o está vacío.");
-            }
-
-            if (AntPenles != null && AntPenles.Length > 0)
-            {
-                adopcion.Ant_Penales = ReadFileAsBytes(AntPenles);
-            }
-            else
-            {
-                ModelState.AddModelError("AntPenles", "El archivo AntPenles no se proporcionó o está vacío.");
-            }
-
-            _context.Add(adopcion);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            ImagenDNI.CopyTo(memoryStream);
+            adopcion.Fot_DNI = memoryStream.ToArray();
         }
-
-
-
-
-
-
-
-
-        private byte[] ReadFileAsBytes(IFormFile file)
+    }
+    
+    if (fileLuz != null && fileLuz.Length > 0)
+    {
+        using (var memoryStream = new MemoryStream())
         {
-            if (file == null || file.Length == 0)
-            {
-                return null;
-            }
-
-            using (var memoryStream = new MemoryStream())
-            {
-                file.CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
+            fileLuz.CopyTo(memoryStream);
+            adopcion.R_luz = memoryStream.ToArray();
         }
+    }
+    
+    if (fileAgua != null && fileAgua.Length > 0)
+    {
+        using (var memoryStream = new MemoryStream())
+        {
+            fileAgua.CopyTo(memoryStream);
+            adopcion.R_agua = memoryStream.ToArray();
+        }
+    }
+    
+    if (AntPenles != null && AntPenles.Length > 0)
+    {
+        using (var memoryStream = new MemoryStream())
+        {
+            AntPenles.CopyTo(memoryStream);
+            adopcion.Ant_Penales = memoryStream.ToArray();
+        }
+    }
+  
+
+    _context.Add(adopcion);
+    await _context.SaveChangesAsync();
+
+    return RedirectToAction(nameof(Index));
+}
 
                  
 

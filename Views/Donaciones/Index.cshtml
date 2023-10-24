@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Donaciones";
+}
+@section Styles {
+   
+    <link rel="stylesheet" href="~/css/Donaciones.css">
+}
+
+<div class="fondo">
+    <img src="~/img/donaciones.jpg" alt="donacion" class="fondo__img">
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <section class="formularioDonacion container">
+        
+            <div class="row"> 
+                <div class="col-md-5">
+                    <label>Fecha de donación</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="date" name="fecha" class="ip"><br>  
+                </div>
+            </div><br>
+            <div class="row"> 
+                <div class="col-md-5">
+                    <label>Monto a donar</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="number" name="monto"class="ip"><br> 
+                </div>
+            </div> <br>    
+                <label>Información de contacto</label><br>
+                <input type="text" name="info" class="ta"><br><br>
+                <input class="form-check-input" type="checkbox" name="confirmacion">
+                <label>Recibir confirmacion por correo electronico</label><br><br>
+                <label>Detalle una brece descripcion</label><br>
+                <input type="text" name="descripcion" class="ta"><br><br>
+                <button class="btnDonacion btnEnviar">Enviar</button>
+                <button class="btnDonacion btnCancelar">Cancelar</button>
+        </section>
+    </div>
+</div>

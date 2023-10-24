@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Suministros";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
+    <link rel="stylesheet" href="~/css/Donaciones.css">
+}
+
+<div class="fondo">
+    <img class="fondo__img">
+</div>
+<div class="grid">
+    <div class="g-col-md-6">
+        <section class="formularioDonacion container">
+        
+            <div class="grid"> 
+                <div class="g-col-md-5">
+                    <label>Fecha de donación</label>
+                </div>
+                <div class="g-col-md-7">
+                    <input type="date" name="fecha" class="ip"><br>  
+                </div>
+            </div><br>
+            <div class="grid"> 
+                <div class="g-col-md-5">
+                    <label>¿Que desea donar?</label>
+                </div>
+                <div class="g-col-md-7">
+                    <div id="app">
+                        <select v-model="selectedDonation" id="donationType" name="donationType">
+                            <option value="comida">Comida</option>
+                            <option value="medicina">Medicina</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                        <p>Ha seleccionado: {{ selectedDonation }}</p>
+                    </div>
+                    <br> 
+                </div>
+            </div> <br>    
+                <label>Información de contacto</label><br>
+                <input type="text" name="info" class="ta"><br><br>
+                <input class="form-check-input" type="checkbox" name="confirmacion">
+                <label>Recibir confirmacion por correo electronico</label><br><br>
+                <label>Detalle una brece descripcion</label><br>
+                <input type="text" name="descripcion" class="ta"><br><br>
+                <button class="btnDonacion btnEnviar">Enviar</button>
+                <button class="btnDonacion btnCancelar">Cancelar</button>
+        </section>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      selectedFruit: 'apple',
+      fruits: [
+        { name: 'Manzana', value: 'apple' },
+        { name: 'Naranja', value: 'orange' },
+        { name: 'Plátano', value: 'banana' },
+        { name: 'Uva', value: 'grape' }
+      ]
+    }
+  });
+</script>

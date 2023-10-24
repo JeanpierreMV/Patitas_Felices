@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Libre+Baskerville:wght@400;700&display=swap');
+
+
+
+.fondo{
+    position: fixed; 
+    display: grid;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;  
+    z-index: -1
+
+  } 
+
+.fondo__img{
+   
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    z-index: -1
+
+
+
+ 
+}
+.formularioDonacion{
+    background-color: #fff;
+    width: 35rem;
+    height: 35rem;
+    padding-top: 3rem;
+    padding-left: 5rem;
+    opacity: 0.9;
+    border-radius:40px;
+    margin: 0 auto;
+  
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+    
+}
+.formularioDonacion input{
+    border-radius: 7px;
+    border: 1px solid;
+}
+.formularioDonacion .ip{
+    width: 10rem;
+}
+.formularioDonacion .ta{
+    width:24rem;
+    height: 6rem;
+}
+.btnDonacion{
+    width:8rem;
+    border-radius: 5px;
+    margin-right: 1rem;
+    margin-left: 2rem;
+}
+.donationType{
+    width:10rem;
+}

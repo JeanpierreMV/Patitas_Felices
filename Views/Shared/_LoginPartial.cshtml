@@ -1,6 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@using Patitas_Felices.Data
+@inject ApplicationDbContext _context 
+
+@{
+   var userName = User.Identity?.Name;
+    var cliente1 = _context.CLIENTE.FirstOrDefault(c => c.User.UserName == userName);
+    var apodo = cliente1 != null ? cliente1.apodo : userName;
+}
 
 <div class="nav__button">
     <div class="row">
@@ -8,7 +16,7 @@
         { 
 
             <div class="dropdown col-9">
-                <input type="text" class="textbox" placeholder="@(User.Identity?.Name)" readonly>
+               <input type="text" class="textbox" placeholder="@apodo" readonly>
                 <div class="option">
                     <a  asp-controller="Profile" asp-action="Index">
                     <div onclick="show('Datos Personales')"><ion-icon name="person-outline"></ion-icon>Datos Personales</div>

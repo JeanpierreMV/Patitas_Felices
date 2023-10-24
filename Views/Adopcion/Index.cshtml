@@ -1,0 +1,50 @@
+@model IEnumerable<Patitas_Felices.Models.ADOPCION>
+
+@section Styles {
+
+}
+
+
+<h1>Solicitudes</h1>
+
+<div class="container">
+
+<div class="row">
+    <div id="HistoryMedic" class="col-sm-12 text-center">
+        <div class="row">
+            <div>
+                <table class="table mx-auto">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Mascota</th>  
+                            <th>Estado</th>                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model){
+                            <tr>
+                                
+                                <td>@Html.DisplayFor(modelItem => item.CLIENTE.nombres)</td> 
+                                <td>@Html.DisplayFor(modelItem =>  item.MASCOTAS.nombre)</td>                                 
+                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>                                
+                                
+                                <td>
+                                    
+                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.id">Detalle</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+   
+    
+}
