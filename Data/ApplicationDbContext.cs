@@ -14,6 +14,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<CLIENTE>?  CLIENTE{get; set;}
     public DbSet<H_MEDICO>? H_MEDICO{get; set;}
     public DbSet<ADOPCION>? ADOPCION{get; set;}
+    public DbSet<VISITAS>? VISITAS{get; set;}
+    public DbSet<PADRINAJE>? PADRINAJE{get; set;}
 
 }
 

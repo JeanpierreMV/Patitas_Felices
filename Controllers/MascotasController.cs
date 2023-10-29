@@ -71,69 +71,144 @@ namespace appejemplo2.Controllers
 
 
       
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Adopcion(ADOPCION adopcion, IFormFile ImagenDNI, IFormFile fileAgua, IFormFile fileLuz, IFormFile AntPenles, int? id)
-{
-    if (id == null)
-    {
-        return NotFound();
-    }
-
-    var mascota = await _context.MASCOTAS.FindAsync(id);
-    var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
-
-    if (mascota == null)
-    {
-        return NotFound();
-    }
-
-    adopcion.CLIENTE = cliente;
-    adopcion.MASCOTAS = mascota;
-    adopcion.Estado = "pendiente";
-    
-    if (ImagenDNI != null && ImagenDNI.Length > 0)
-    {
-        using (var memoryStream = new MemoryStream())
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Adopcion(ADOPCION adopcion, IFormFile ImagenDNI, IFormFile fileAgua, IFormFile fileLuz, IFormFile AntPenles, int? id)
         {
-            ImagenDNI.CopyTo(memoryStream);
-            adopcion.Fot_DNI = memoryStream.ToArray();
-        }
-    }
-    
-    if (fileLuz != null && fileLuz.Length > 0)
-    {
-        using (var memoryStream = new MemoryStream())
-        {
-            fileLuz.CopyTo(memoryStream);
-            adopcion.R_luz = memoryStream.ToArray();
-        }
-    }
-    
-    if (fileAgua != null && fileAgua.Length > 0)
-    {
-        using (var memoryStream = new MemoryStream())
-        {
-            fileAgua.CopyTo(memoryStream);
-            adopcion.R_agua = memoryStream.ToArray();
-        }
-    }
-    
-    if (AntPenles != null && AntPenles.Length > 0)
-    {
-        using (var memoryStream = new MemoryStream())
-        {
-            AntPenles.CopyTo(memoryStream);
-            adopcion.Ant_Penales = memoryStream.ToArray();
-        }
-    }
-  
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-    _context.Add(adopcion);
-    await _context.SaveChangesAsync();
+            var mascota = await _context.MASCOTAS.FindAsync(id);
+            var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
 
-    return RedirectToAction(nameof(Index));
-}
+            if (mascota == null)
+            {
+                return NotFound();
+            }
+
+            adopcion.CLIENTE = cliente;
+            adopcion.MASCOTAS = mascota;
+            adopcion.Estado = "pendiente";
+            
+            if (ImagenDNI != null && ImagenDNI.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    ImagenDNI.CopyTo(memoryStream);
+                    adopcion.Fot_DNI = memoryStream.ToArray();
+                }
+            }
+            
+            if (fileLuz != null && fileLuz.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    fileLuz.CopyTo(memoryStream);
+                    adopcion.R_luz = memoryStream.ToArray();
+                }
+            }
+            
+            if (fileAgua != null && fileAgua.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    fileAgua.CopyTo(memoryStream);
+                    adopcion.R_agua = memoryStream.ToArray();
+                }
+            }
+            
+            if (AntPenles != null && AntPenles.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    AntPenles.CopyTo(memoryStream);
+                    adopcion.Ant_Penales = memoryStream.ToArray();
+                }
+            }
+        
+
+            _context.Add(adopcion);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+         public async Task<IActionResult>Visita(int? id){
+     
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+      
+            VISITAS visitas = new VISITAS
+            {
+                MASCOTAS = await _context.MASCOTAS.FindAsync(id)
+            };
+
+            if (visitas.MASCOTAS == null)
+            {
+                return NotFound();
+            }
+
+            return View(visitas);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>Visita(VISITAS visitas, int? id)
+        {
+
+             if (id == null)
+            {
+                return NotFound();
+            }
+
+            if (visitas.FechaYHora.Kind != DateTimeKind.Utc)
+            {
+                visitas.FechaYHora = visitas.FechaYHora.ToUniversalTime();
+            }
+
+            var mascota = await _context.MASCOTAS.FindAsync(id);
+            var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
+            visitas.CLIENTE = cliente;
+            visitas.MASCOTAS = mascota;
+
+            _context.Add(visitas);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult>Padrinaje(int? id){
+     
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+      
+            PADRINAJE padrinaje = new PADRINAJE
+
+            {
+                MASCOTAS = await _context.MASCOTAS.FindAsync(id)
+            };
+
+            if (padrinaje.MASCOTAS == null)
+            {
+                return NotFound();
+            }
+
+            return View(padrinaje);
+
+        }
+
+
+        
 
                  
 

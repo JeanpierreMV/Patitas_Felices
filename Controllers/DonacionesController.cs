@@ -17,5 +17,10 @@ public class DonacionesController : Controller
     {
         return View();
     }
+
+     public IActionResult Suministros()
+    {
+        return View();
+    }
 }
 
