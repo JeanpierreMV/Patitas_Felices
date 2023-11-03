@@ -1,0 +1,149 @@
+@{
+    ViewData["Title"] = "Voz Animal";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
+    <link rel="stylesheet" href="~/css/Donaciones.css">
+}
+<div class="sub1">
+    <div>
+        <b><h2>AYUDANOS  A  AYUDAR</h2></b>
+        <img src="/img/dog_albergue.png" class="perritos">
+    </div>
+</div>
+<div class="subtitulo">
+    <div><span class="" ><strong style="padding-left: 148px;"><b>VOZ ANIMAL</b></strong></span></div>
+    <div>
+        <p style="padding-top: 40px; font-size: 20px;">
+            <strong>Una linda iniciativa que consiste en lograr que cada vez seamos más humanos <br> ayudando y dándoles una vida mejor a todos aquellos que no tienen voz.</strong><br>
+            
+        </p>
+        <label>Conoce nuestros Packs por los peluditos y únete para ayudarnos a lograr un mundo mejor para ellos!</label>
+    </div>
+</div><br><br><br>
+
+<div class="montos">
+<div class="row">
+    <div class="col-md-6">
+        <img src="/img/10so.png">
+    </div>
+    <div class="col-md-6">
+        <h2 class="tit-r">Pack 10 por los peluditos</h2>
+        <label>Con este pack nos ayudarás a pagar nuestra agua para mantenernos sin sed, luz, y nuestro personal de limpieza diaria.</label>
+        <label>Cada 2 meses te mandaremos un boletín contándote las actividades mensuales realizadas.</label><br><br>
+        <a asp-action="Index" asp-controller="Pago"><button class="btn-r">S/. 10.00 MENSUALES</button></a>
+    </div>
+</div><br><br><br>
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="tit-t">Pack 30 por los peluditos</h2>
+        <label>Con este pack nos ayudarás a poder rescatar a 1 peludito de la calle que más lo necesite y poder esterilizarlo.</label>
+        <label>Cada 2 meses te mandaremos un boletín contándote las actividades mensuales realizadas. Además, recibirás cada 3 meses nuestra <b>Cuponera Guau****</b> con beneficios para los engreídos de la casa.</label><br><br>
+        <a asp-action="Index" asp-controller="Pago"><button class="btn-t">S/. 30.00 MENSUALES</button></a>
+    </div>
+    <div class="col-md-6">
+        <img src="/img/30so.png">
+    </div>
+</div><br><br><br>
+<div class="row">
+    <div class="col-md-6">
+        <img src="/img/60so.png">
+    </div>
+    <div class="col-md-6">
+        <h2 class="tit-r">Pack 60 por los peluditos</h2>
+        <label>Con este pack nos ayudarás a poder rescatar 2 peluditos de la calle que más lo necesiten y poder esterilizarlos.</label>
+        <label>Cada 2 meses te mandaremos un boletín contándote las actividades mensuales realizadas. Además, recibirás cada 3 meses nuestra <b>Cuponera Súper Guau****</b> con beneficios para los engreídos de la casa. También tendrás opción de unirte a 1 de nuestras charlas o talleres por zoom de manera gratuita!</label><br><br>
+        <a asp-action="Index" asp-controller="Pago"><button class="btn-r">S/. 60.00 MENSUALES</button></a>
+    </div>
+</div><br><br><br>
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="tit-t">Pack 100 apadrina a un peludito*</h2>
+        <label>Con este pack será como si adoptaras a distancia un peludito del albergue que espera hogar. Adicional, nos ayudarás a poder rescatar a 1 peludito de la calle y poder esterilizarlo.</label>
+        <label>Cada 2 meses te mandaremos un boletín contándote las actividades mensuales realizadas. Cada mes también recibirás fotos de tu ahijado para que veas cómo está. Además, recibirás cada 3 meses nuestra <b>Cuponera Mega Guau****</b> con beneficios para los engreídos de la casa. También tendrás opción de unirte a 2 de nuestras charlas o talleres por zoom de manera gratuita!</label><br><br>
+        <a asp-action="Index" asp-controller="Pago"><button class="btn-t">S/. 100.00 MENSUALES</button></a>
+    </div>
+    <div class="col-md-6">
+        <img src="/img/100so.png">
+    </div>
+</div><br><br><br>
+<div class="row">
+    <div class="col-md-6">
+        <img src="/img/libre.png">
+    </div>
+    <div class="col-md-6">
+        <h2 class="tit-r">Pack Libre por los peluditos</h2>
+        <label>Nos ayudarás a poder rescatar peluditos que se presenten en el camino y a esterilizarlos</label>
+        <label>Cada 2 meses te mandaremos un boletín contándote las actividades mensuales realizadas. Además, recibirás beneficios dependiendo del monto que dones y si es mayor a S/.100.00 podrás tener un virtual date con tu peludito** y adicionalmente recibirás el kit de bienvenida Voz Animal***</label><br><br>
+        <a asp-action="Index" asp-controller="Pago"><button class="btn-r">TU ELIGES EL MONTO MENSUAL</button></a>
+    </div>
+</div><br><br><br><br>
+</div>
+
+<div>
+<h1>¡Juntos por ellos!</h1>
+</div><br>
+<section class="container mt-5">
+      
+      <div class="galery">
+        <div class="image">
+          <img src="/img/p1.jpeg" alt="imagen galeria" />
+        </div>
+
+        <div class="image">
+          <img src="/img/pv1.jpg" alt="imagen galeria" />
+        </div>
+
+        <div class="image">
+          <img src="/img/p3.jpg" alt="imagen galeria" />
+        </div>
+
+        <div class="image">
+          <img src="/img/g1.jpeg" alt="imagen galeria" />
+        </div>
+
+        <div class="image">
+          <img src="/img/g2.jpg" alt="imagen galeria" />
+        </div>
+
+        <div class="image">
+          <img src="/img/gv1.jpg" alt="imagen galeria" />
+        </div>
+
+        <div class="image">
+          <img src="/img/p2.jpg" alt="imagen galeria" />
+        </div>
+      </div>
+    </section><br><br><br>
+
+    <div class="marquee-container" id="marqueeContainer">
+        <img src="/img/urp.png">
+        <img src="/img/mascoteca.jpg">
+        <img src="/img/barf.png">
+        <img src="/img/cabellos.png">
+        <img src="/img/lineabulls.png">
+        <img src="/img/mismaskot.png">
+        <img src="/img/urp.png">
+        <img src="/img/mascoteca.jpg">
+        <img src="/img/barf.png">
+        <img src="/img/cabellos.png">
+        <img src="/img/lineabulls.png">
+        <img src="/img/mismaskot.png">
+</div><br><br><br><br>
+
+    <script>
+        const marqueeContainer = document.getElementById('marqueeContainer');
+        let pos = 0;
+        const speed = 0.2 ; 
+
+        setInterval(() => {
+            pos -= speed;
+            marqueeContainer.style.transform = `translateX(${pos}px)`;
+            if (pos < -marqueeContainer.offsetWidth) {
+                pos = window.innerWidth;
+            }
+        }, 5);
+    </script>
+
+

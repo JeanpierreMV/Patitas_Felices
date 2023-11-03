@@ -1,14 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Libre+Baskerville:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Poppins:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+:root {
+  --body-font: "Lato", sans-serif;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1024px) {
+  :root {
+    --biggest-font-size: 4rem;
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+  header{
+    background-image: url("/img/texture.png");
+    background-color: #00afa5;
+    color: #fff;
+    min-height:200px;
+    width: 100%; 
+    top: 0; 
+    left: 0; 
+    z-index: 10;
+ }
+ .sub1{
+  text-align: center;
+  margin-top:-59px;
+  font-size: 70px;
+ }
+ .perritos{
+  height: 150px;
+  width: auto;
+  float: right;
+  margin-top:-137px; 
+ }
+ .sub1 h2{
+  color: #fff;
+  font-size:50px;
+  font-family: var(--body-font);
+  font-weight: 400;
+ }
+.info{
+  background-color: #999999;
+  color: #fff;
+  width: 100%;
+  min-width: 250px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+
+}
+
+ .subtitulo{
+  text-align: center;
+  margin-top: -37px;
+  padding-left: 150px;
+ }
+ .subtitulo span {
+  color: #00afa5;
+  font-size:50px;
+  font-family:var(--body-font);
+ }
 .custom-button {
     margin-bottom: 10px; /* Separación vertical entre los botones */
-    border: 2px solid #007bff; /* Borde azul de 2 píxeles */
-    background-color: transparent; /* Fondo transparente */
-    color: #007bff; /* Color de texto azul */
+    border: 2px solid #efa5a2; /* Borde azul de 2 píxeles */
+    background-color: #efa5a2;
+    color: #fff; /* Color de texto azul */
     font-weight: bold; /* Texto en negrita */
     transition: background-color 0.3s, color 0.3s; /* Transición suave para el cambio de color */
+    border-radius: 10px;
 }
 
 /* Cambia el color de fondo y el color de texto al pasar el cursor sobre el botón */
 .custom-button:hover {
-    background-color: #007bff; /* Color de fondo azul al pasar el cursor */
+    background-color: rgba(221, 188, 187, 0.573);/* Color de fondo azul al pasar el cursor */
+    border: rgba(221, 188, 187, 0.573);
     color: #fff; /* Color de texto blanco al pasar el cursor */
 }
+

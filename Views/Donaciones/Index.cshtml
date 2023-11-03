@@ -2,41 +2,142 @@
     ViewData["Title"] = "Donaciones";
 }
 @section Styles {
-   
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
     <link rel="stylesheet" href="~/css/Donaciones.css">
 }
-
-<div class="fondo">
-    <img src="~/img/donac.jpg" alt="donacion" class="fondo__img">
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <section class="formularioDonacion container">
-        
-            <div class="row"> 
-                <div class="col-md-5">
-                    <label>Fecha de donación</label>
-                </div>
-                <div class="col-md-7">
-                    <input type="date" name="fecha" class="ip"><br>  
-                </div>
-            </div><br>
-            <div class="row"> 
-                <div class="col-md-5">
-                    <label>Monto a donar</label>
-                </div>
-                <div class="col-md-7">
-                    <input type="number" name="monto"class="ip"><br> 
-                </div>
-            </div> <br>    
-                <label>Información de contacto</label><br>
-                <input type="text" name="info" class="ta"><br><br>
-                <input class="form-check-input" type="checkbox" name="confirmacion">
-                <label>Recibir confirmacion por correo electronico</label><br><br>
-                <label>Detalle una brece descripcion</label><br>
-                <input type="text" name="descripcion" class="ta"><br><br>
-                <button class="btnDonacion btnEnviar">Enviar</button>
-                <button class="btnDonacion btnCancelar">Cancelar</button>
-        </section>
+<div class="sub1">
+    <div>
+        <h2>AYUDANOS  A  AYUDAR</h2>
+        <img src="/img/dog_albergue.png" class="perritos">
     </div>
 </div>
+<div class="subtitulo">
+    <div><span style="padding-left: 150px;"><strong><b>DONACIONES</b></strong></span></div>
+    <div style="float: right;">
+        <a asp-action="VozAnimal" asp-controller="Donaciones"><button class="info">La manada de voz animal</button></a>
+    </div>
+    <div>
+        <p style="padding-top: 40px;">
+            <strong>Gracias a tus donaciones</strong><br>
+            Podemos seguir ayudando más animalitos a salir del abandono y maltrato.
+        </p>
+    </div>
+</div>
+<div class="tipoD">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="t-i" src="/img/visa.jpg">
+            <label>Puedes hacer tu donacion voluntaria con tu <br> tarjeta en el siguiente enlace</label><br><br>
+            <a asp-action="Index" asp-controller="Pago"><button class="btnP-Pagos">DONA CON VISA</button></a>
+        </div>
+        <div class="col-md-6">
+            <img  class="t-i" src="/img/bcp.png">
+            <label>Si deseas puedes donar voluntariamente </label><br>
+            <label>en nuestra cuenta soles</label>
+            <label>
+                <strong>
+                    19191347157053<br>
+                    Interbancario: 00219119134715705354
+                </strong>
+            
+            </label>
+        </div>
+    </div>
+</div><br><br>
+
+<div class="marquee-container" id="marqueeContainer">
+        <img src="img/urp.png">
+        <img src="img/mascoteca.jpg">
+        <img src="img/barf.png">
+        <img src="img/cabellos.png">
+        <img src="img/lineabulls.png">
+        <img src="img/mismaskot.png">
+        <img src="img/urp.png">
+        <img src="img/mascoteca.jpg">
+        <img src="img/barf.png">
+        <img src="img/cabellos.png">
+        <img src="img/lineabulls.png">
+        <img src="img/mismaskot.png">
+</div>
+
+    <script>
+        const marqueeContainer = document.getElementById('marqueeContainer');
+        let pos = 0;
+        const speed = 0.2 ; 
+
+        setInterval(() => {
+            pos -= speed;
+            marqueeContainer.style.transform = `translateX(${pos}px)`;
+            if (pos < -marqueeContainer.offsetWidth) {
+                pos = window.innerWidth;
+            }
+        }, 5);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="container-formulario">
+    <div class="mensaje">
+        <label>Tu generosidad sera una bendicion para nuestas mascotas en el albergue que necesitan de nosotros para que puedan tener un mejor lugar y apoyo. No los dejemos solos en esta lucha!</label><br><br>
+    
+    </div>
+    <div class="formulario">
+        <form class="donaciones">
+            <div class="grid">
+            <div>
+                <label for="cantidad">Monto de la donación:</label>
+            </div>
+            <div>
+                <input type="number" id="cantidad" name="cantidad" required>
+            </div>
+
+            <div>
+                <label for="opciones">Opciones de donación:</label>
+            </div>
+            <div>
+                <select id="opciones" name="opciones">
+                <option value="alimentos">Alimentos</option>
+                <option value="suministros">Suministros</option>
+                <option value="efectivo">Donacion en efectivo</option>
+            </select>
+            </div>
+            </div>
+            <br>
+            <label for="Comentarios">Comentarios adicionales:</label><br>
+            <textarea id="comentarios" name="comentarios"></textarea><br><br>
+            
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Quiero recibir noticias por correo electrónico
+            </label>
+            </div><br>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+                Deseo ser reconocido públicamente por mi donación
+            </label>
+            </div><br>
+            <button class="btn-continuar">
+                <div class="icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                    </svg>
+                </div>
+                <span>Continuar</span>
+            </button>
+        </form>
+        
+    </div>
+   
+   
+</div> *@
