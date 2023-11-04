@@ -1,3 +1,23 @@
+Vue.component('pago-component', {
+  data() {
+    return {
+      isPagoVisible: false
+    };
+  },
+  methods: {
+    togglePago() {
+      this.isPagoVisible = !this.isPagoVisible;
+    }
+  },
+  template: `
+    <div>
+      <button @click="togglePago">Mostrar Pago</button>
+      <div v-if="isPagoVisible" id="pago-content" class="show-pago">    
+
+      </div>
+    </div>
+  `
+});
 
 new Vue({
   el: "#app",
@@ -81,4 +101,12 @@ new Vue({
       vm.isInputFocused = false;
     }
   }
+
+  
 });
+
+
+
+
+
+
