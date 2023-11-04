@@ -11,22 +11,35 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-
+<div>
+    <div class="sub1">
+        <div>
+            <h2>AYUDANOS  A  AYUDAR</h2>
+            <img src="/img/dog_albergue.png" class="perritos">
+        </div>
+    </div>
+    <div class="subtitulo">
+        <div><span class=""><strong><b>CON MUCHO AMOR</b></strong></span></div>
+        <div style="float: right;">
+            <a asp-action="Mascotas" asp-controller="Index"><button class="info">Regresar</button></a>
+        </div>
+    </div>
+</div> <br><br><br>
 <div class="row">
     <div class="col-sm-8">
-        <div class="card border-primary mb-3 text-center" style="max-width: 50rem;">
+        <div class="card mb-3 text-center" style="max-width: 50rem;">
             <div class="card-body">
                 <div class="card-img-actions" >
-                   <img src="data:image/png;base64,@Convert.ToBase64String(Model.Imagen)" alt="Imagen de la mascota" />
+                   <img src="data:image/png;base64,@Convert.ToBase64String(Model.Imagen)" alt="Imagen de la mascota" class="card-img-top mx-auto d-block"/>
                 </div>
             </div>
         </div>    
     </div>
     
     <div class="col-sm-4 " >
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card mb-3" style="max-width: 20.6rem;margin-top:110px;">
             <div class="card-body">
-                <h5 class="card-header text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">@Html.DisplayFor(model => model.tipo)</font></font></h5>
+                <h5 class="card-header text-center"><font style="vertical-align: inherit;">@Html.DisplayFor(model => model.tipo)</font></font></h5>
                     <br>
                 <h5 class="card-title">Nombre: @Html.DisplayFor(model => model.nombre)</h5>
                 <h5 class="card-text">Raza: @Html.DisplayFor(model => model.raza)</h5>
@@ -51,13 +64,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-              <a class="btn custom-button btn-block" asp-action="Adopcion" asp-route-id="@Model.id">Solicitar Adopción</a>
+              <a class="btn custom-button btn-block" asp-action="Adopcion" asp-route-id="@Model.id" style="width:330px;">Solicitar Adopción</a>
             </div>
             <div class="col-md-6">  
-                <a class="btn custom-button btn-block" asp-action="Padrinaje" asp-route-id="@Model.id">Apadrinaje</a>
+                <a class="btn custom-button btn-block" asp-action="Padrinaje" asp-route-id="@Model.id"style="width:160px;">Apadrinaje</a>
             </div>
             <div class="col-md-6">
-                <a class="btn custom-button btn-block" asp-action="Visita" asp-route-id="@Model.id">Quiero Conocerlo</a>
+                <a class="btn custom-button btn-block" asp-action="Visita" asp-route-id="@Model.id" style="width:160px; margin-left:-50px;">Quiero Conocerlo</a>
             </div>
         </div>
     </div>
@@ -65,7 +78,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <div class="card border-primary mb-3" style="max-width: 100%;">
+        <div class="card mb-3" style="max-width: 100%;">
             <div class="card-body">
                 <h5 class="card-header text-center">Hisorial de salud</h5>
                 <table class="table table-striped">

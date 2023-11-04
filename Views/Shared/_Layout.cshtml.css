@@ -40,9 +40,24 @@ button.accept-policy {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
+  bottom: 0 ; 
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+  background-image: url("/img/texture.png");
+  background-color: #000;
+  min-height: 120px;
+  color: #fff;
+  top: 0; 
+  left: 0; 
+  z-index: 10;
 }
+footer .home__social-link{
+  color: #fff;
+  font-size: 40px; /* Ajusta el tamaño del icono según sea necesario */
+  float: right;
+  margin: 15px;
+  margin-top: 30px;
+}
+
+

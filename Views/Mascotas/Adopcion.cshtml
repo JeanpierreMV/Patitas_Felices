@@ -7,84 +7,65 @@
     <link rel="stylesheet" href="~/css/Adopcion.css">     
 }
 
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger">
-        <ul>
-            @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@modelError.ErrorMessage</li>
-            }
-        </ul>
+<div class="grid">
+    <div class="foto">
+        @* <img src="/img/pg.jpg"> *@
+     <label style="font-size: 80px;">No compres,</label><br>
+     <strong><label style="font-size: 95px;">Adopta.</label></strong>        
     </div>
-}
 
-<section class="form_wrap">
+    <div class="form-adop">
+       
+         <form asp-action="Adopcion" method="post" enctype="multipart/form-data" class="formulario row" >
 
-        <section class="cantact_info">
-            <section class="info_title">
-                <span class="fa fa-user-circle"></span>
-                <h2>PARA<br>CONTACTO</h2>
-            </section>
-            <section class="info_items">
-                <p><span class="fa fa-envelope"></span> PatitasFelices_refugio@gmail.com</p>
-                <p><span class="fa fa-mobile"></span> +51 944 667 328</p>
-            </section>
-        </section>
-
-       <form asp-action="Adopcion" method="post" enctype="multipart/form-data"  >
-
-
-          
-                <div class="form-group">
-                    <label asp-for="AntPenles" class="control-label">Antecendentes penales</label>
-                    <input asp-for="AntPenles" type="file" class="form-control-file" />
+            
+                <div class="form-group col-md-6" style="margin-bottom: 10px;">
+                    <label asp-for="AntPenles" class="control-label">Antecendentes penales</label><br>
+                    <input asp-for="AntPenles" type="file" class="form-control-file" /><br>
                     <span asp-validation-for="AntPenles" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ImagenDNI" class="control-label">Foto de DNI</label>
-                    <input asp-for="ImagenDNI" type="file" class="form-control-file" />
+                </div><br>
+                <div class="form-group col-md-6">
+                    <label asp-for="ImagenDNI" class="control-label">Foto de DNI</label><br>
+                    <input asp-for="ImagenDNI" type="file" class="form-control-file" /><br>
                     <span asp-validation-for="ImagenDNI" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="fileLuz" class="control-label">Recibo de Luz</label>
+                </div><br>
+                <div class="form-group col-md-6">
+                    <label asp-for="fileLuz" class="control-label" style="margin-bottom: 10px;">Recibo de Luz</label><br>
                     <input asp-for="fileLuz" type="file" class="form-control-file" />
                     <span asp-validation-for="fileLuz" class="text-danger"></span>
-                </div>
-                 <div class="form-group">
-                    <label asp-for="fileAgua" class="control-label">Recibo de Agua</label>
+                </div><br>
+                 <div class="form-group col-md-6">
+                    <label asp-for="fileAgua" class="control-label">Recibo de Agua</label><br>
                     <input asp-for="fileAgua" type="file" class="form-control-file" />
                     <span asp-validation-for="fileAgua" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                </div><br>
+                <div class="form-group col-md-6">
                     <label asp-for="Q_familiares" class="control-label">Miembros de la Familia:</label>
                     <input asp-for="Q_familiares"  class="form-control" />
                     <span asp-validation-for="Q_familiares" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                </div><br>
+                <div class="form-group col-md-6">
                     <label asp-for="Q_niños" class="control-label">Cantidad de niños:</label>
                     <input asp-for="Q_niños"  class="form-control" />
                     <span asp-validation-for="Q_niños" class="text-danger"></span>
-                </div>
+                </div><br>
                 <div class="form-group">
                     <label asp-for="Domicilio" class="control-label">Domicilio:</label>
                     <input asp-for="Domicilio"  class="form-control" />
                     <span asp-validation-for="Domicilio" class="text-danger"></span>
-                </div>
+                </div><br>
                 <div class="form-group">
                     <label asp-for="Desc_Domicilio" class="control-label">Descripción de Domicilio:</label>
                     <input asp-for="Desc_Domicilio"  class="form-control" />
                     <span asp-validation-for="Desc_Domicilio" class="text-danger"></span>
-                </div>
+                </div><br>
                 <div class="form-group">
                     <label asp-for="Razon" class="control-label">Porque desea adoptar</label>
                     <input asp-for="Razon"  class="form-control" />
                     <span asp-validation-for="Razon" class="text-danger"></span>
                 </div>
 
-
       
-
 
               <div class="form-group">
                         <input type="submit" value="Guardar" class="btn btn-primary my-3" />
@@ -93,7 +74,6 @@
         </form>
 
     </section>
-
 
     <div id="modal" class="modal-container">
         <div class="modal-content">
@@ -109,9 +89,11 @@ id="openModal"
         </div>
     </div>
 
-@section Scripts {
-     <script src="~/js/modal.js"></script>
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/solicitarAdo.js"></script>
-    
-}
+        @section Scripts {
+            <script src="~/js/modal.js"></script>
+            <partial name="_ValidationScriptsPartial" />
+            <script src="~/js/solicitarAdo.js"></script>
+            
+        }
+    </div>
+</div>
