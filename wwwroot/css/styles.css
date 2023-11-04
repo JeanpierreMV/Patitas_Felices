@@ -260,7 +260,9 @@ img {
   font-size: var(--small-font-size);
 }
 
-
+footer{
+  display: none;
+}
 /*=============== BREAKPOINTS ===============*/
 /* For medium devices */
 @media screen and (min-widh: 576px){
