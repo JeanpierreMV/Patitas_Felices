@@ -61,6 +61,20 @@
     </dl>
 </div>
 
+<form asp-action="Details" method="post">
+    <div class="form-group">
+        <label for="Estado">Actualizar Estado:</label>
+        <select class="form-control" id="Estado" name="Estado">
+            <option value="Aprobado">Aprobado</option>
+            <option value="Rechazado">Rechazado</option>
+            <option value="Pendiente">Pendiente</option>
+        </select>
+    </div>
+    <input type="hidden" name="id" value="@Model.id" />
+    <button type="submit" class="btn btn-primary">Actualizar Estado</button>
+</form>
+
+
 
 @section Scripts {  
  <script>

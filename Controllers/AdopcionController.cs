@@ -36,10 +36,6 @@ namespace Patitas_Felices.Controllers
         }
 
 
-
-
-
-
         public async Task<IActionResult> Details(int? id){
             if (id == null)
                 {
@@ -58,6 +54,21 @@ namespace Patitas_Felices.Controllers
 
                 return View(adopcion);
         }
+
+        [HttpPost]
+            public async Task<IActionResult> Details(int id, string Estado)
+            {
+                var adopcion = await _context.ADOPCION.FindAsync(id);
+                if (adopcion == null)
+                {
+                    return NotFound();
+                }
+
+                adopcion.Estado = Estado;
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+            }
 
 
     }
