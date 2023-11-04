@@ -47,6 +47,7 @@
 </div><br><br>
 
 <div class="marquee-container" id="marqueeContainer">
+    
         <img src="img/urp.png">
         <img src="img/mascoteca.jpg">
         <img src="img/barf.png">
@@ -62,17 +63,15 @@
 </div>
 
     <script>
-        const marqueeContainer = document.getElementById('marqueeContainer');
-        let pos = 0;
-        const speed = 0.2 ; 
+window.onload = function() {
+  const marqueeContainer = document.getElementById('marqueeContainer');
+  const images = marqueeContainer.querySelectorAll('img');
 
-        setInterval(() => {
-            pos -= speed;
-            marqueeContainer.style.transform = `translateX(${pos}px)`;
-            if (pos < -marqueeContainer.offsetWidth) {
-                pos = window.innerWidth;
-            }
-        }, 5);
+  // Añadir clases a las imágenes para iniciar la animación
+  images.forEach(image => {
+    image.classList.add('marquee-image');
+  });
+};
     </script>
 
 

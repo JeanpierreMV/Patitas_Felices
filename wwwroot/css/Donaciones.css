@@ -38,6 +38,7 @@ body {
     left: 0; 
     z-index: 10;
  }
+
  .sub1{
   text-align: center;
   margin-top:-50px;
@@ -107,17 +108,26 @@ body {
  }
 
  .marquee-container {
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
 }
+
 
 .marquee-container img {
+  width: 100px; /* Ajusta el ancho de las imágenes según tus preferencias */
+  height: auto;
   display: inline-block;
-  vertical-align: middle;
-  max-width: 80px;
-  margin-right: 60px; 
+  animation: marquee 10s linear infinite;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 /* montos */
 .montos{
   width: 100%;
