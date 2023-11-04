@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  header{
+    background-image: url("/img/texture.png");
+    background-color: #00afa5;
+    color: #fff;
+    min-height:200px;
+    width: 100%; 
+    top: 0; 
+    left: 0; 
+    z-index: 10;
+ }
+
+.sub1{
+    text-align: center;
+    font-size: 70px;
+   }
+   .perritos{
+    height: 150px;
+    width: auto;
+    float: right;
+    margin-top:-138px; 
+   }
+   .sub1 h2{
+    color: #fff;
+    font-size:50px;
+    font-family: var(--body-font);
+    font-weight: 700;
+    margin-top:-47px;
+   }
+   .subtitulo{
+    text-align: center;
+    font-size: 20px;
+    margin-top: -40px;
+   }
+   .subtitulo span {
+    color: #00afa5;
+    font-size:50px;
+    font-family:var(--body-font);
+   }
+
+.admin a{
+    height: 180px;
+    width: 300px;
+}
+.admin a img{
+    width:150px;
+    padding-left: 50px;
+
+}
