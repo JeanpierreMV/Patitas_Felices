@@ -41,22 +41,22 @@ namespace Patitas_Felices.Controllers
 
 
         public async Task<IActionResult> Details(int? id){
- if (id == null)
-    {
-        return NotFound();
-    }
+            if (id == null)
+                {
+                    return NotFound();
+                }
 
-    var adopcion = await _context.ADOPCION
-        .Include(h => h.MASCOTAS)
-        .Include(a => a.CLIENTE)
-        .FirstOrDefaultAsync(h => h.id == id);
+                var adopcion = await _context.ADOPCION
+                    .Include(h => h.MASCOTAS)
+                    .Include(a => a.CLIENTE)
+                    .FirstOrDefaultAsync(h => h.id == id);
 
-    if (adopcion == null)
-    {
-        return NotFound();
-    }
+                if (adopcion == null)
+                {
+                    return NotFound();
+                }
 
-    return View(adopcion);
+                return View(adopcion);
         }
 
 

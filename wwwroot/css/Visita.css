@@ -1,0 +1,66 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+      margin: 0;
+      padding: 0;
+    }
+    header{
+      background-image: url("/img/texture.png");
+      background-color: #00afa5;
+      color: #fff;
+      min-height:200px;
+      width: 100%; 
+      top: 0; 
+      left: 0; 
+      z-index: 10;
+   }
+   .sub1{
+    text-align: center;
+    margin-top:-47px;
+    font-size: 70px;
+   }
+   .perritos{
+    height: 150px;
+    width: auto;
+    float: right;
+    margin-top:-138px; 
+   }
+   .sub1 h2{
+    color: #fff;
+    font-size:50px;
+    font-family: var(--body-font);
+    font-weight: 700;
+   }
+  
+   .subtitulo{
+    text-align: center;
+    margin-top: -40px;
+    
+   }
+   .subtitulo span {
+    color: #00afa5;
+    font-size:50px;
+    font-family:var(--body-font);
+   }
+   #fechaHora{
+    width: 300px;
+   }
+   .fondo{
+    width:100%;
+    max-width:400px;
+   }
+   .cuerpo{
+    margin-top:80px;
+    float: center;
+    margin-left:150px;
+   }
+   .formulario{
+    padding-left: 100px;
+   }
+/*    .form-check{
+
+   } */

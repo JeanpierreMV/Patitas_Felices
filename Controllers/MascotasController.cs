@@ -38,13 +38,24 @@ namespace appejemplo2.Controllers
         }
 
 
-        public async Task<IActionResult> Details(int? id){
-            MASCOTAS objMascot = await _context.MASCOTAS.FindAsync(id);
-            if(objMascot == null){
-                return NotFound();
-            }
-            return View(objMascot);
-        }
+public async Task<IActionResult> Details(int? id)
+{
+    var data = await _context.MASCOTAS
+        .Where(m => m.id == id)
+        .Select(m => new
+        {
+            Mascota = m,
+            HistorialMedico = _context.H_MEDICO.Where(h => h.MASCOTAS.id == m.id).FirstOrDefault()
+        })
+        .FirstOrDefaultAsync();
+
+    if (data == null)
+    {
+        return NotFound();
+    }
+
+    return View(data);
+}
 
         
         

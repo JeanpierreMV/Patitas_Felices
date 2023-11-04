@@ -3,32 +3,51 @@
 @{
      ViewData["Title"] = "VISITAS";
 }
-
-
-<form asp-action="Visita" method="post" enctype="multipart/form-data"  >
-
-
-    <div class="form-group">
-        <label asp-for="FechaYHora" class="control-label">Fecha y Hora</label>
-        <input asp-for="FechaYHora" type="datetime-local" class="form-control" id="fechaHora" />
-        <span asp-validation-for="FechaYHora" class="text-danger"></span>
-        <span id="horaInvalida" class="text-danger" style="display:none;">No puede elegir esta hora.</span>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Visita.css">     
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+}
+<section class="titulo">
+    <div class="sub1">
+        <div>
+            <h2>AYUDANOS  A  AYUDAR</h2>
+            <img src="/img/dog_albergue.png" class="perritos">
+        </div>
     </div>
-
-        <div class="form-group">
-            <input type="submit" value="Guardar" class="btn btn-primary my-3" />    
-        </div>        
-
-</form>
-
-<div class="fondo">
-    <img src="data:image/png;base64,@Convert.ToBase64String(Model.MASCOTAS.Imagen)" alt="Imagen de la mascota" />
-</div>
-
-<div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1379.416885985736!2d-76.94271614862355!3d-12.072383254128985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c7112063f383%3A0x62f9e66ce7494a9!2sFIA%20-%20DATA!5e0!3m2!1ses!2spe!4v1698371856983!5m2!1ses!2spe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-
+    <div class="subtitulo">
+        <div><span style="padding-left: 150px;"><strong><b>PROGRAMA TU VISITA</b></strong></span></div>
+    </div>
+</section>
+<section>
+    <div class="container row cuerpo">
+        <div class="fondo col-md-4">
+            <img src="data:image/png;base64,@Convert.ToBase64String(Model.MASCOTAS.Imagen)" alt="Imagen de la mascota" />
+        </div>
+        <div class="formulario col-md-8">
+            <label>Nombre de la mascota: </label>
+            <br><br> 
+            <form asp-action="Visita" method="post" enctype="multipart/form-data"  >
+                <div class="form-group">
+                    <label asp-for="FechaYHora" class="control-label">Fecha y Hora</label>
+                    <input asp-for="FechaYHora" type="datetime-local" class="form-control" id="fechaHora" />
+                    <span asp-validation-for="FechaYHora" class="text-danger"></span>
+                    <span id="horaInvalida" class="text-danger" style="display:none;">No puede elegir esta hora.</span>
+                </div>
+            
+            </form><br><br>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1379.416885985736!2d-76.94271614862355!3d-12.072383254128985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c7112063f383%3A0x62f9e66ce7494a9!2sFIA%20-%20DATA!5e0!3m2!1ses!2spe!4v1698371856983!5m2!1ses!2spe" width="600" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+            Acepto recibir el historial clinico de la mascota a mi correo personal 
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Enviar" class="btn btn-primary my-3" />    
+    </div> 
+</section>
 
 
 
