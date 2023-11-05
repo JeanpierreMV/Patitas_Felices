@@ -14,7 +14,7 @@ namespace Patitas_Felices.Models
         [Column("id")]
         public int id { get; set; }
         public int monto { get; set; }
-        public VISITAS  VISITAS {get;set;}
+
         public CLIENTE  CLIENTE{ get; set; }
 
         public MASCOTAS MASCOTAS{ get; set; }

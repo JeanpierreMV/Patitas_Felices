@@ -218,6 +218,34 @@ public async Task<IActionResult> Details(int? id)
 
         }
 
+                [HttpPost]
+                public async Task<IActionResult>Padrinaje(int id,int monto)
+                {
+                    MASCOTAS mascota = await _context.MASCOTAS.FindAsync(id);
+                    var userName = User.Identity?.Name; 
+                    var cliente = _context.CLIENTE.FirstOrDefault(c => c.User.UserName == userName);
+        
+
+                    if (cliente == null)
+                    {
+                        return NotFound(); 
+                    }
+
+                    PADRINAJE padrinaje = new PADRINAJE
+                    {
+                        MASCOTAS = mascota,         
+                        monto = monto,
+                        CLIENTE= cliente 
+                    };
+
+                  
+                    _context.PADRINAJE.Add(padrinaje);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
+
+
 
         
 

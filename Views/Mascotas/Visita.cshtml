@@ -24,9 +24,9 @@
             <img src="data:image/png;base64,@Convert.ToBase64String(Model.MASCOTAS.Imagen)" alt="Imagen de la mascota" />
         </div>
         <div class="formulario col-md-8">
-            <label>Nombre de la mascota: </label>
+            <label>Nombre de la mascota:  @Model.MASCOTAS.nombre</label>
             <br><br> 
-            <form asp-action="Visita" method="post" enctype="multipart/form-data"  >
+            <form id="miFormulario" asp-action="Visita" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label asp-for="FechaYHora" class="control-label">Fecha y Hora</label>
                     <input asp-for="FechaYHora" type="datetime-local" class="form-control" id="fechaHora" />
@@ -45,7 +45,7 @@
         </label>
     </div>
     <div class="form-group">
-        <input type="submit" value="Enviar" class="btn btn-primary my-3" />    
+       <button id="botonEnviar" class="btn btn-primary my-3">Enviar</button> 
     </div> 
 </section>
 
@@ -82,6 +82,16 @@
         } else {
             horaInvalida.style.display = 'none';
         }
+    });
+</script>
+
+<script>
+    document.getElementById("botonEnviar").addEventListener("click", function() {
+        // Obtén el formulario por su id
+        var formulario = document.getElementById("miFormulario");
+        
+        // Envía el formulario
+        formulario.submit();
     });
 </script>
     
