@@ -1,5 +1,5 @@
 .pago{
-    top: -100%;
+    top: 100%;
     position:fixed;
     /* top:0; */
     left:0;
@@ -11,6 +11,7 @@
     align-items: center;
      padding: 1.5rem;
     transition:top .4s;
+
 
 }
 .pago__close{
@@ -27,8 +28,12 @@
     top:0;
 }
 
-
-
+ div .card-form__inner{
+    margin-top: -150px;
+} 
+div .card-list{
+    margin-top:-50px;
+}
 footer{
     display: none;
 }

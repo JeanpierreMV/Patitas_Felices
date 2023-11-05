@@ -11,7 +11,7 @@
         <input asp-for="monto"type="number"  class="form-control" id="monto" />
         <span asp-validation-for="monto" class="text-danger"></span>
     </div>
-
+</form>
  
 
     <div class="form-group">
@@ -20,7 +20,7 @@
  
 
     <div class="pago grid" id="pago-content">
-        <form class="row" action="">
+         <form class="row" action="">
             <div class="wrapper" id="app">
                 <div class="card-form">
                     <div class="card-list">
@@ -136,18 +136,18 @@
                     <div class="pago__gruop grid">
                         <div class="card-form__inner">
                             <div class="card-input">
-                                <label for="cardNumber" class="card-input__label">Card Number</label>
+                                <label for="cardNumber" class="card-input__label">Número de tarjeta</label>
                                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask"
                                     v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber"
                                     autocomplete="off">
                             </div>
                             <div class="card-input">
-                                <label for="cardName" class="card-input__label">Card Holders</label>
+                                <label for="cardName" class="card-input__label">Nombre en la tarjeta</label>
                                 <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput"
                                     v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
                             </div>
                             <div class="card-input">
-                                <label for="shipping">Dirección de envio:</label>
+                                <label for="shipping" class="card-input__label">Dirección de envio:</label>
                                 <input type="text" id="shipping" name="shipping" required class="form-control" />
                             </div>
                             <div class="card-form__row">
@@ -186,7 +186,7 @@
         </form>
         <i class="ri-close-line pago__close" id="pago-close"></i>
     </div>
-</form>
+
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
