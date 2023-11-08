@@ -54,11 +54,9 @@
         </form>
     </div>
     <div class="frmbotones col-md-6">
-        <button asp-area="" asp-controller="Padrino" asp-action="Index" class="text-right d-block">Mascotas apadrinadas</button><br>
-        <a class="text-right d-block" asp-area="" asp-controller="Padrino" asp-action="Index">Mascotas apadrinadas</a><br>
-        <button asp-area="" asp-controller="Voluntario" asp-action="Index"class="text-right d-block">Tareas</button>
-    </div>
-    
+        <a asp-area="" asp-controller="Padrino" asp-action="Index"><button class="text-right d-block">Mascotas apadrinadas</button></a><br>
+        <a asp-area="" asp-controller="Tarea" asp-action="Index"><button class="text-right d-block">Tareas</button></a>
+    </div>    
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
