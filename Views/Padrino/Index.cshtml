@@ -1,0 +1,25 @@
+@model List<Patitas_Felices.Models.MASCOTAS>
+
+<h1>Mis Mascotas Apadrinadas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mascota in Model)
+        {
+            <tr>
+                <td>@mascota.nombre</td>
+                <td>@mascota.tipo</td>
+                <td>@mascota.raza</td>
+                <td>@mascota.edad</td>
+            </tr>
+        }
+    </tbody>
+</table>
