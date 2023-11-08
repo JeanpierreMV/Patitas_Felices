@@ -12,8 +12,8 @@ using Patitas_Felices.Data;
 namespace Patitas_Felices.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231027014141_R_cuartMigration")]
-    partial class R_cuartMigration
+    [Migration("20231105203329_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -424,6 +424,60 @@ namespace Patitas_Felices.Data.Migrations
                     b.ToTable("Mascotas");
                 });
 
+            modelBuilder.Entity("Patitas_Felices.Models.PADRINAJE", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CLIENTEid")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MASCOTASid")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("monto")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CLIENTEid");
+
+                    b.HasIndex("MASCOTASid");
+
+                    b.ToTable("PADRINAJE");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.VISITAS", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CLIENTEid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("FechaYHora")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("MASCOTASid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CLIENTEid");
+
+                    b.HasIndex("MASCOTASid");
+
+                    b.ToTable("VISITAS");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -510,6 +564,44 @@ namespace Patitas_Felices.Data.Migrations
                         .HasForeignKey("MASCOTASid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("MASCOTAS");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.PADRINAJE", b =>
+                {
+                    b.HasOne("Patitas_Felices.Models.CLIENTE", "CLIENTE")
+                        .WithMany()
+                        .HasForeignKey("CLIENTEid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Patitas_Felices.Models.MASCOTAS", "MASCOTAS")
+                        .WithMany()
+                        .HasForeignKey("MASCOTASid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CLIENTE");
+
+                    b.Navigation("MASCOTAS");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.VISITAS", b =>
+                {
+                    b.HasOne("Patitas_Felices.Models.CLIENTE", "CLIENTE")
+                        .WithMany()
+                        .HasForeignKey("CLIENTEid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Patitas_Felices.Models.MASCOTAS", "MASCOTAS")
+                        .WithMany()
+                        .HasForeignKey("MASCOTASid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CLIENTE");
 
                     b.Navigation("MASCOTAS");
                 });

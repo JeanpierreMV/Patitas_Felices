@@ -16,6 +16,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<ADOPCION>? ADOPCION{get; set;}
     public DbSet<VISITAS>? VISITAS{get; set;}
     public DbSet<PADRINAJE>? PADRINAJE{get; set;}
+    public DbSet<VOLUNTARIO>? VOLUNTARIO{get; set;}
+    public DbSet<TAREA>? TAREA{get; set;}
 
 }
 

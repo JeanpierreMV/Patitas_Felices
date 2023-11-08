@@ -2,25 +2,49 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/sispag.css">  
-     <link rel="stylesheet" href="~/css/pagos.css" asp-append-version="true" />   
+    <link rel="stylesheet" href="~/css/pagos.css" asp-append-version="true" />   
 }
-
-<form asp-action="padrinaje" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="monto" class="control-label">Monto</label>
-        <input asp-for="monto"type="number"  class="form-control" id="monto" />
-        <span asp-validation-for="monto" class="text-danger"></span>
+<section class="titulo">
+    <div class="sub1">
+        <div>
+            <h2>AYUDANOS  A  AYUDAR</h2>
+            <img src="/img/dog_albergue.png" class="perritos">
+        </div>
     </div>
-
- 
-
-    <div class="form-group">
-         <input type="submit" value="Mostrar Pago" class="pago-buton" id="pago-button" />
+    <div class="subtitulo">
+        <div><span style="padding-left: 150px;"><strong><b>PADRINAJE</b></strong></span></div>
     </div>
+</section>
+<section>
+    <div class="container row montoDon">
+        <div class="foto col-md-6">
+            <img src="data:image/png;base64,@Convert.ToBase64String(Model.MASCOTAS.Imagen)" alt="Imagen de la mascota" />
+        </div>
+        <div class="frmmonto col-md-6">
+            <label class="padrinaje" style="font-family: Borel;font-size: 20px;text-align: center;">¡Tu contribución importa! Apadrina a un perro y sé parte de su historia de amor y esperanza.</label>
+            <form asp-action="padrinaje" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="monto" class="control-label" style="font-family: Borel;font-size: 20px;text-align: center;">Monto: </label>
+                    <div class="input-group">
+                        <span class="icono-moneda">S/</span>
+                        <input asp-for="monto" type="number" class="form-control" id="monto" />
+                    </div>
+                    <span asp-validation-for="monto" class="text-danger"></span>
+                </div>
+                <br><br>
+            <div class="form-group">
+                    <input type="submit" value="Continuar Pago" class="pago-buton" id="pago-button" />
+            </div>
+            </form><br>
+
+        </div>
+    </div>
+</section>
+
  
 
     <div class="pago grid" id="pago-content">
-        <form class="row" action="">
+         <form class="row" action="">
             <div class="wrapper" id="app">
                 <div class="card-form">
                     <div class="card-list">
@@ -136,18 +160,18 @@
                     <div class="pago__gruop grid">
                         <div class="card-form__inner">
                             <div class="card-input">
-                                <label for="cardNumber" class="card-input__label">Card Number</label>
+                                <label for="cardNumber" class="card-input__label">Número de tarjeta</label>
                                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask"
                                     v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber"
                                     autocomplete="off">
                             </div>
                             <div class="card-input">
-                                <label for="cardName" class="card-input__label">Card Holders</label>
+                                <label for="cardName" class="card-input__label">Nombre en la tarjeta</label>
                                 <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput"
                                     v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
                             </div>
                             <div class="card-input">
-                                <label for="shipping">Dirección de envio:</label>
+                                <label for="shipping" class="card-input__label">Dirección de envio:</label>
                                 <input type="text" id="shipping" name="shipping" required class="form-control" />
                             </div>
                             <div class="card-form__row">
@@ -178,7 +202,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="card-form__button" type="submit">Pagar</button>
+                           <form method="post" asp-action="RealizarPago">
+                                <button class="card-form__button" type="submit">Pagar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -186,7 +212,7 @@
         </form>
         <i class="ri-close-line pago__close" id="pago-close"></i>
     </div>
-</form>
+
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>

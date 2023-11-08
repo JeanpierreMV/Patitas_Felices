@@ -276,3 +276,7 @@ img {
     font-size: 2rem;
   }
 }
+
+footer{
+  display: none;
+}

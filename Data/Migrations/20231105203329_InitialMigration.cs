@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Patitas_Felices.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class reinicMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -237,10 +237,13 @@ namespace Patitas_Felices.Data.Migrations
                     Fot_DNI = table.Column<byte[]>(type: "bytea", nullable: false),
                     R_luz = table.Column<byte[]>(type: "bytea", nullable: false),
                     R_agua = table.Column<byte[]>(type: "bytea", nullable: false),
+                    Ant_Penales = table.Column<byte[]>(type: "bytea", nullable: false),
                     Q_familiares = table.Column<int>(type: "integer", nullable: false),
                     Q_niños = table.Column<int>(type: "integer", nullable: false),
                     Desc_Domicilio = table.Column<string>(type: "text", nullable: false),
+                    Domicilio = table.Column<string>(type: "text", nullable: false),
                     Razon = table.Column<string>(type: "text", nullable: false),
+                    Estado = table.Column<string>(type: "text", nullable: false),
                     CLIENTEid = table.Column<int>(type: "integer", nullable: false),
                     MASCOTASid = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -255,6 +258,60 @@ namespace Patitas_Felices.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ADOPCION_Mascotas_MASCOTASid",
+                        column: x => x.MASCOTASid,
+                        principalTable: "Mascotas",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PADRINAJE",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    monto = table.Column<int>(type: "integer", nullable: false),
+                    CLIENTEid = table.Column<int>(type: "integer", nullable: false),
+                    MASCOTASid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PADRINAJE", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_PADRINAJE_Cliente_CLIENTEid",
+                        column: x => x.CLIENTEid,
+                        principalTable: "Cliente",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PADRINAJE_Mascotas_MASCOTASid",
+                        column: x => x.MASCOTASid,
+                        principalTable: "Mascotas",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VISITAS",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FechaYHora = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CLIENTEid = table.Column<int>(type: "integer", nullable: false),
+                    MASCOTASid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VISITAS", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_VISITAS_Cliente_CLIENTEid",
+                        column: x => x.CLIENTEid,
+                        principalTable: "Cliente",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VISITAS_Mascotas_MASCOTASid",
                         column: x => x.MASCOTASid,
                         principalTable: "Mascotas",
                         principalColumn: "id",
@@ -317,6 +374,26 @@ namespace Patitas_Felices.Data.Migrations
                 name: "IX_H_MEDICO_MASCOTASid",
                 table: "H_MEDICO",
                 column: "MASCOTASid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PADRINAJE_CLIENTEid",
+                table: "PADRINAJE",
+                column: "CLIENTEid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PADRINAJE_MASCOTASid",
+                table: "PADRINAJE",
+                column: "MASCOTASid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VISITAS_CLIENTEid",
+                table: "VISITAS",
+                column: "CLIENTEid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VISITAS_MASCOTASid",
+                table: "VISITAS",
+                column: "MASCOTASid");
         }
 
         /// <inheritdoc />
@@ -344,10 +421,16 @@ namespace Patitas_Felices.Data.Migrations
                 name: "H_MEDICO");
 
             migrationBuilder.DropTable(
-                name: "Cliente");
+                name: "PADRINAJE");
+
+            migrationBuilder.DropTable(
+                name: "VISITAS");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
 
             migrationBuilder.DropTable(
                 name: "Mascotas");

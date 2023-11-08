@@ -1,5 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Libre+Baskerville:wght@400;700&display=swap');
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff !important;
+    }
+    header{
+      background-image: url("/img/texture.png");
+      background-color: #00afa5;
+      color: #fff;
+      min-height:200px;
+      width: 100%; 
+      top: 0; 
+      left: 0; 
+      z-index: 10;
+   }
+   .sub1{
+    text-align: center;
+    margin-top:-47px;
+    font-size: 70px;
+   }
+   .perritos{
+    height: 150px;
+    width: auto;
+    float: right;
+    margin-top:-138px; 
+   }
+   .sub1 h2{
+    color: #fff;
+    font-size:50px;
+    font-family: var(--body-font);
+    font-weight: 700;
+   }
+  
+   .subtitulo{
+    text-align: center;
+    margin-top: -40px;
+    
+   }
+   .subtitulo span {
+    color: #00afa5;
+    font-size:50px;
+    font-family:var(--body-font);
+   }    
 .pago{
-    top: -100%;
+    top: 100%;
     position:fixed;
     /* top:0; */
     left:0;
@@ -11,6 +61,7 @@
     align-items: center;
      padding: 1.5rem;
     transition:top .4s;
+
 
 }
 .pago__close{
@@ -27,8 +78,53 @@
     top:0;
 }
 
+ div .card-form__inner{
+    margin-top: -150px;
+} 
+div .card-list{
+    margin-top:-50px;
+}
 
+.frmmonto{
+    margin-top:60px;
+}
+.pago-buton{
+    background-color: #EFA5A2;
+    color: #fff;
+    width: 100%;
+    max-width: 250px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    margin-left: 170px;
+    font-family: Borel;
+    font-size: 18px;
+    padding-top: 12px;
+  }
 
-footer{
-    display: none;
+  .input-group {
+    position: relative;
+}
+
+.input-group .icono-moneda {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    top: 65%;
+    transform: translateY(-50%);
+    left: 10px;
+    z-index: 1;
+    font-family: Borel;
+}
+
+.input-group input[type="number"] {
+    padding-left: 30px; /* Ajusta este valor según sea necesario para evitar que el texto se superponga al icono */
+    padding-top: 20px;
+    font-family: Borel;
+}
+
+#monto{
+    border-radius:15px;
 }

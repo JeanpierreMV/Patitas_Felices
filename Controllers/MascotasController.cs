@@ -168,32 +168,49 @@ public async Task<IActionResult> Details(int? id)
             return View(visitas);
 
         }
+        //hay un problema y es no se genera el primary key automaticamente --esta solucionado a medias xdd
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Visita(VISITAS visitas, int? id)
+        [HttpPost]    
+        public async Task<IActionResult> Visita(VISITAS visitas, int? id)
+    {
+        if (id == null)
         {
-
-             if (id == null)
-            {
-                return NotFound();
-            }
-
-            if (visitas.FechaYHora.Kind != DateTimeKind.Utc)
-            {
-                visitas.FechaYHora = visitas.FechaYHora.ToUniversalTime();
-            }
-
-            var mascota = await _context.MASCOTAS.FindAsync(id);
-            var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
-            visitas.CLIENTE = cliente;
-            visitas.MASCOTAS = mascota;
-
-            _context.Add(visitas);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            return NotFound();
         }
+
+        if (visitas.FechaYHora.Kind != DateTimeKind.Utc)
+        {
+            visitas.FechaYHora = visitas.FechaYHora.ToUniversalTime();
+        }
+
+        var mascota = await _context.MASCOTAS.FindAsync(id);
+        
+        // Verificar si el cliente existe
+        var cliente = _context.CLIENTE.Include(c => c.User).FirstOrDefault(c => c.User.UserName == _userManager.GetUserName(User));
+        
+        if (cliente == null)
+        {
+            // Mostrar un mensaje de aviso
+            TempData["Message"] = "Debe crear un perfil primero";
+            return View("~/Views/Profile/Index.cshtml");
+        }
+
+        visitas.CLIENTE = cliente;
+        visitas.MASCOTAS = mascota;
+
+    
+        var maxId = _context.VISITAS.Max(v => v.id);
+        
+     
+        visitas.id = maxId + 1;
+
+
+        _context.Add(visitas);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
+        
 
         public async Task<IActionResult>Padrinaje(int? id){
      
@@ -218,33 +235,39 @@ public async Task<IActionResult> Details(int? id)
 
         }
 
-                [HttpPost]
-                public async Task<IActionResult>Padrinaje(int id,int monto)
-                {
-                    MASCOTAS mascota = await _context.MASCOTAS.FindAsync(id);
-                    var userName = User.Identity?.Name; 
-                    var cliente = _context.CLIENTE.FirstOrDefault(c => c.User.UserName == userName);
-        
+        [HttpPost]
+            public async Task<IActionResult> Padrinaje(int id, int monto)
+        {
+            MASCOTAS mascota = await _context.MASCOTAS.FindAsync(id);
+            var userName = User.Identity?.Name; 
+            var cliente = _context.CLIENTE.FirstOrDefault(c => c.User.UserName == userName);
 
-                    if (cliente == null)
-                    {
-                        return NotFound(); 
-                    }
+            if (cliente == null)
+            {
+                // No hace nada y termina la acción
+                return NoContent();
+            }
 
-                    PADRINAJE padrinaje = new PADRINAJE
-                    {
-                        MASCOTAS = mascota,         
-                        monto = monto,
-                        CLIENTE= cliente 
-                    };
+            PADRINAJE padrinaje = new PADRINAJE
+            {
+                MASCOTAS = mascota,         
+                monto = monto,
+                CLIENTE = cliente 
+            };
 
-                  
-                    _context.PADRINAJE.Add(padrinaje);
-                    await _context.SaveChangesAsync();
+            _context.PADRINAJE.Add(padrinaje);
+            await _context.SaveChangesAsync();
 
-                    return RedirectToAction(nameof(Index));
-                }
+            // Retorna una respuesta sin contenido
+            return NoContent();
+        }
 
+            [HttpPost]
+            public IActionResult RealizarPago()
+            {
+                
+                return View("~/Views/Home/Index.cshtml");
+            }
 
 
         
