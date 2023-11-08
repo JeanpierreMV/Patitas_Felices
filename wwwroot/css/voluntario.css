@@ -44,10 +44,10 @@
     border-color: #EFA5A2;
     cursor: pointer;
     padding-top: 15px;
-    width: 350px;
+    width: 300px;
     border-radius: 10px;
     font-size: 17px;
-
+    margin-left: 105px;
 }
 .formulario button:hover{
     background-color: #efa5a2c0;

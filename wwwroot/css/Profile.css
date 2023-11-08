@@ -1,6 +1,29 @@
-body{
-    background-color: hsla(0, 0%, 44%, 0.205);
+@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Poppins:wght@400;500;700&display=swap");
+@media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  }
+  
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  
+  body {
+    background-image: url("/img/manipulacion.jpeg");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    
 }
+
 
 .form-container {
     background-color: #f0f0f0; 
@@ -23,4 +46,50 @@ body{
 
 .form-group {
     margin-bottom: 20px; 
+}
+.frmprofile{
+    width: 400px;
+    padding-top: 50px;
+    font-family: Lora;
+}
+.frmprofile label{
+    text-transform: capitalize;
+    font-size: 16px;
+}
+.frmprofile input{
+    font-size: 14px;
+    color: rgb(47, 44, 44);
+}
+.frmprofile button{
+    background-color: #EFA5A2;
+    border-color: #EFA5A2;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 10px;
+    font-size: 17px;
+    margin-left: 80px;
+}
+.frmprofile button:hover{
+    background-color: #efa5a2c0;
+    border-color: #efa5a2c0;
+}
+ .frmbotones{
+    margin-top: 120px;
+} 
+.frmbotones button{
+    background-color: #EFA5A2;
+    border-color: #EFA5A2;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 10px;
+    font-size: 17px;
+    height: 50px;
+    width: 300px;
+    margin-left: 600px;
+}.frmbotones button:hover{
+    background-color: #efa5a2c0;
+    border-color: #efa5a2c0;
+}
+footer{
+    display: none;
 }
