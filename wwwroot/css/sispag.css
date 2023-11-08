@@ -128,3 +128,6 @@ div .card-list{
 #monto{
     border-radius:15px;
 }
+footer{
+    display: none;
+}
