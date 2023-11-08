@@ -6,14 +6,24 @@
         @TempData["Message"]
     </div>
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/voluntario.css" asp-append-version="true" />
+}
 
-
-<form asp-action="Index" method="post">
-    <div class="form-group">
-        <label asp-for="FechaYHora">Fecha y Hora de Disponibilidad:</label>
-        <input asp-for="FechaYHora" class="form-control" type="datetime-local" required />
-        <span asp-validation-for="FechaYHora" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Registrarse como Voluntario</button>
-</form>
+<div class="foto">
+        @* <img src="/img/pg.jpg"> *@
+     <label>¡Únete a nosotros para marcar la diferencia en las vidas de nuestros adorables residentes!</label><br>
+     <strong><label>Tu tiempo y amor son fundamentales para brindarles el cuidado y la atención que merecen.</label></strong>      
+     <label>¡Ven y sé parte del cambio hoy!</label>  
+</div>
+<div class="formulario">
+    <form asp-action="Index" method="post">
+        <div class="form-group">
+            <label asp-for="FechaYHora">Fecha y Hora de Disponibilidad:</label><br>
+            <input asp-for="FechaYHora" class="form-control" type="datetime-local" required />
+            <span asp-validation-for="FechaYHora" class="text-danger"></span>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Registrarse como Voluntario</button>
+    </form>
+</div>

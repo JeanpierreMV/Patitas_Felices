@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+@media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  }
+  
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  
+  body {
+    background-image: url("/img/F_login.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    
+}
+.foto{
+    margin-left:700px;
+    color: #442B26;
+    font-family: Borel;
+    text-align: center;
+    margin-top:80px;
+    font-size: 20px;
+  }
+.formulario{
+    width: 500px;
+    margin-left:750px;
+    margin-top: 50px;
+    font-family: Borel;
+}
+.formulario input {
+    padding-top: 20px;
+}
+.formulario button{
+    background-color: #EFA5A2;
+    border-color: #EFA5A2;
+    cursor: pointer;
+    padding-top: 15px;
+    width: 350px;
+    border-radius: 10px;
+    font-size: 17px;
+
+}
+.formulario button:hover{
+    background-color: #efa5a2c0;
+    border-color: #efa5a2c0;
+    
+}
+footer{
+    display: none;
+}
