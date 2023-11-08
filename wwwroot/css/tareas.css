@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Libre+Baskerville:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Poppins:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Poppins:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+  }
+  header{
+    background-image: url("/img/texture.png");
+    background-color: #00afa5;
+    color: #fff;
+    min-height:200px;
+    width: 100%; 
+    top: 0; 
+    left: 0; 
+    z-index: 10;
+ }
+
+ .sub1{
+  text-align: center;
+  margin-top:-50px;
+  font-size: 70px;
+ }
+ .perritos{
+  height: 150px;
+  width: auto;
+  float: right;
+  margin-top:-138px; 
+ }
+ .sub1 h2{
+  color: #fff;
+  font-size:50px;
+  font-family: var(--body-font);
+  font-weight: 700;
+ }
+ .subtitulo{
+    text-align: center;
+    margin-top: -39px;
+    
+   }
+   .subtitulo span {
+    color: #00afa5;
+    font-size:50px;
+    font-family:var(--body-font);
+   }
