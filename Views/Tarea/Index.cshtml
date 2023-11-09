@@ -33,11 +33,12 @@
         <thead>
             <tr>              
                 <th>
-                   tarea
+                   Tarea
                 </th>
                 <th>
                     Listo?
                 </th>
+                <th>Fecha</th>
                 <th>Actualizar</th>
                 <th>Eliminar</th>
             </tr>
@@ -58,6 +59,7 @@
                         <span class="text-danger">Pendiente</span>
                     }
                 </td>
+                <td>@Html.DisplayFor(modelItem => item.fechayhora)</td>
                 <td>
                     <a class="btn btn-light" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                 </td>

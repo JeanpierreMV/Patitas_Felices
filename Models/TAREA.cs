@@ -19,6 +19,7 @@ namespace Patitas_Felices.Models
         public string Descripcion { get; set; }
 
         public bool Completada { get; set; }  
+        public DateTime fechayhora {get; set; }
 
     }
 }

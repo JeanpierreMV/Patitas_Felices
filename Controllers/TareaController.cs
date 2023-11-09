@@ -40,14 +40,13 @@ namespace Patitas_Felices.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TAREA tarea)
         {
-            if (ModelState.IsValid)
-            {
+
                 _context.Add(tarea);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            
 
-            return View(tarea);
+
         }
 
         // Acción para mostrar el formulario de edición de tarea

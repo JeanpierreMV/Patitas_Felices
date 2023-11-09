@@ -106,7 +106,26 @@ body {
   border-radius:20px;
   margin-bottom: 40px;
  }
-
+.pago-butond{
+  color: white;
+  height: 50px;
+  padding: 4px 0 0 0;
+  width:100%;
+  max-width: 300px;
+  text-align: center;
+  background-color:#999;
+  transition: transform 0.3s;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  border: none;
+  text-transform: uppercase;
+  border-radius:20px;
+  margin-bottom: 40px;
+  font-family:var(--body-font);
+}
  .marquee-container {
   overflow: hidden;
   white-space: nowrap;

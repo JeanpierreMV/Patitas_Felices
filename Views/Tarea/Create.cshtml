@@ -1,26 +1,61 @@
-@model Patitas_Felices.Models.TAREA
+@model IEnumerable<Patitas_Felices.Models.TAREA>
 
-<h1>Crear Nueva Tarea</h1>
+@{
+    ViewData["Title"] = "Gestion de mascotas";
+}    
+@section Styles {
+    <link rel="stylesheet" href="~/css/tareas.css">   
+}
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Descripcion">Descripción de la Tarea</label>
-        <input asp-for="Descripcion" class="form-control" required>
-        <span asp-validation-for="Descripcion" class="text-danger"></span>
+<div class="sub1">
+    <div>
+        <b><h2>AYUDANOS  A  AYUDAR</h2></b>
+        <img src="/img/dog_albergue.png" class="perritos">
     </div>
-    
-    <div class="form-group">
-        <div class="form-check">
-            <input asp-for="Completada" class="form-check-input" type="checkbox">
-            <label class="form-check-label" asp-for="Completada">Completada</label>
-        </div>
+</div>
+<div class="subtitulo">
+    <div><span><strong style="padding-left: 148px;"><b>AGREGAR TAREAS</b></strong></span></div>
+    <div>
+        <p style="padding-top: 40px; font-size: 20px;">
+            <strong>Con tu amor y cuidado, cada pequeño gesto marca una gran diferencia en las vidas que tocamos. </strong>
+        </p>
+        <label> ¡Gracias por ser la voz y el apoyo de aquellos que no pueden hablar por sí mismos!</label>
     </div>
+</div>
+<br><br>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Crear Tarea</button>
-    </div>
-</form>
-
-<div>
-    <a asp-action="Index">Volver a la lista de tareas</a>
+<div class="container" style="text-align: center;">  
+    <p style="text-align: right">
+        <a class="btn btn-light" asp-area="" asp-controller="Tarea" asp-action="Create">Agregar  <i class="fa fa-plus" aria-hidden="true"></i></a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>              
+                <th>ID</th>
+                <th>Tareas</th>
+                <th>Fecha</th>
+                <th>Elegir</th>
+            </tr>
+        </thead>
+        <tbody>
+           @if (Model != null)
+            {
+                @foreach (var item in Model) 
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.fechayhora)</td>
+                        <td> 
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
