@@ -41,36 +41,31 @@ namespace Patitas_Felices.Controllers
         }
         
         /* desde aqui */
-       [HttpPost]
-
+        [HttpPost]
         public async Task<IActionResult> RealizarPago(DONACIONES donacion)
         {
             var userName = User.Identity.Name;
             var cliente = await _context.CLIENTE.FirstOrDefaultAsync(c => c.User.UserName == userName);
 
-            if (ModelState.IsValid)
-            {
+         
                 //Guarda el cliente que hizo la donacion
                 donacion.CLIENTE = cliente;
 
                 // Configura la fecha y hora actual
                 donacion.FechaHora = DateTime.UtcNow;
 
-
                 // Guarda la donación en la base de datos
                 _context.DONACIONES.Add(donacion);
                 _context.SaveChanges();
 
-
-                // Redirige a la vista de donaciones con un mensaje de éxito
+                // Redirige a la acción 'Donaciones' con un mensaje de éxito
                 TempData["MensajePago"] = "¡Gracias por tu donación!";
-                return RedirectToAction(nameof(Donaciones));
-            }
+                return RedirectToAction("Donaciones", "Donaciones");
+            
 
-            // Si hay errores de validación, vuelve a mostrar el formulario
-            return View(donacion);
+      
+        
         }
 
-        /* hasta aqui */
     }
 }

@@ -83,6 +83,15 @@ namespace Patitas_Felices.Controllers
             return View(voluntario); // Volver a mostrar la vista de registro con errores de validación
         }
 
+        public async Task<IActionResult> Tareas()
+        {          
+            
+
+            return View();
+        }
+
+
+
 
     }
 }
