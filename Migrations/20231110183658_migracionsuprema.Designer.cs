@@ -9,11 +9,11 @@ using Patitas_Felices.Data;
 
 #nullable disable
 
-namespace Patitas_Felices.Data.Migrations
+namespace Patitas_Felices.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231108013906_segMigration")]
-    partial class segMigration
+    [Migration("20231110183658_migracionsuprema")]
+    partial class migracionsuprema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -328,6 +328,31 @@ namespace Patitas_Felices.Data.Migrations
                     b.ToTable("Cliente");
                 });
 
+            modelBuilder.Entity("Patitas_Felices.Models.DONACIONES", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CLIENTEid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("FechaHora")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CLIENTEid");
+
+                    b.ToTable("Donaciones");
+                });
+
             modelBuilder.Entity("Patitas_Felices.Models.H_MEDICO", b =>
                 {
                     b.Property<int>("id")
@@ -470,6 +495,9 @@ namespace Patitas_Felices.Data.Migrations
                     b.Property<int?>("VOLUNTARIOid")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("fechayhora")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("VOLUNTARIOid");
@@ -603,6 +631,17 @@ namespace Patitas_Felices.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.DONACIONES", b =>
+                {
+                    b.HasOne("Patitas_Felices.Models.CLIENTE", "CLIENTE")
+                        .WithMany()
+                        .HasForeignKey("CLIENTEid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CLIENTE");
                 });
 
             modelBuilder.Entity("Patitas_Felices.Models.H_MEDICO", b =>

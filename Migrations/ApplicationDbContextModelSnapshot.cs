@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Patitas_Felices.Data;
 
 #nullable disable
 
-namespace Patitas_Felices.Data.Migrations
+namespace Patitas_Felices.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231105203329_InitialMigration")]
-    partial class InitialMigration
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,6 +325,31 @@ namespace Patitas_Felices.Data.Migrations
                     b.ToTable("Cliente");
                 });
 
+            modelBuilder.Entity("Patitas_Felices.Models.DONACIONES", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CLIENTEid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("FechaHora")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CLIENTEid");
+
+                    b.ToTable("Donaciones");
+                });
+
             modelBuilder.Entity("Patitas_Felices.Models.H_MEDICO", b =>
                 {
                     b.Property<int>("id")
@@ -451,6 +473,35 @@ namespace Patitas_Felices.Data.Migrations
                     b.ToTable("PADRINAJE");
                 });
 
+            modelBuilder.Entity("Patitas_Felices.Models.TAREA", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Completada")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("VOLUNTARIOid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("fechayhora")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VOLUNTARIOid");
+
+                    b.ToTable("TAREA");
+                });
+
             modelBuilder.Entity("Patitas_Felices.Models.VISITAS", b =>
                 {
                     b.Property<int>("id")
@@ -476,6 +527,28 @@ namespace Patitas_Felices.Data.Migrations
                     b.HasIndex("MASCOTASid");
 
                     b.ToTable("VISITAS");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.VOLUNTARIO", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CLIENTEid")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("FechaYHora")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CLIENTEid");
+
+                    b.ToTable("VOLUNTARIO");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -557,6 +630,17 @@ namespace Patitas_Felices.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Patitas_Felices.Models.DONACIONES", b =>
+                {
+                    b.HasOne("Patitas_Felices.Models.CLIENTE", "CLIENTE")
+                        .WithMany()
+                        .HasForeignKey("CLIENTEid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CLIENTE");
+                });
+
             modelBuilder.Entity("Patitas_Felices.Models.H_MEDICO", b =>
                 {
                     b.HasOne("Patitas_Felices.Models.MASCOTAS", "MASCOTAS")
@@ -587,6 +671,13 @@ namespace Patitas_Felices.Data.Migrations
                     b.Navigation("MASCOTAS");
                 });
 
+            modelBuilder.Entity("Patitas_Felices.Models.TAREA", b =>
+                {
+                    b.HasOne("Patitas_Felices.Models.VOLUNTARIO", null)
+                        .WithMany("TareasRealizadas")
+                        .HasForeignKey("VOLUNTARIOid");
+                });
+
             modelBuilder.Entity("Patitas_Felices.Models.VISITAS", b =>
                 {
                     b.HasOne("Patitas_Felices.Models.CLIENTE", "CLIENTE")
@@ -604,6 +695,22 @@ namespace Patitas_Felices.Data.Migrations
                     b.Navigation("CLIENTE");
 
                     b.Navigation("MASCOTAS");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.VOLUNTARIO", b =>
+                {
+                    b.HasOne("Patitas_Felices.Models.CLIENTE", "CLIENTE")
+                        .WithMany()
+                        .HasForeignKey("CLIENTEid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CLIENTE");
+                });
+
+            modelBuilder.Entity("Patitas_Felices.Models.VOLUNTARIO", b =>
+                {
+                    b.Navigation("TareasRealizadas");
                 });
 #pragma warning restore 612, 618
         }

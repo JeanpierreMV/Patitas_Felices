@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Patitas_Felices.Data.Migrations
+namespace Patitas_Felices.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class migracionsuprema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -265,6 +265,27 @@ namespace Patitas_Felices.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Donaciones",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FechaHora = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Monto = table.Column<decimal>(type: "numeric", nullable: false),
+                    CLIENTEid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Donaciones", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Donaciones_Cliente_CLIENTEid",
+                        column: x => x.CLIENTEid,
+                        principalTable: "Cliente",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PADRINAJE",
                 columns: table => new
                 {
@@ -316,6 +337,47 @@ namespace Patitas_Felices.Data.Migrations
                         principalTable: "Mascotas",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VOLUNTARIO",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FechaYHora = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CLIENTEid = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VOLUNTARIO", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_VOLUNTARIO_Cliente_CLIENTEid",
+                        column: x => x.CLIENTEid,
+                        principalTable: "Cliente",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TAREA",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Descripcion = table.Column<string>(type: "text", nullable: false),
+                    Completada = table.Column<bool>(type: "boolean", nullable: false),
+                    fechayhora = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    VOLUNTARIOid = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TAREA", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_TAREA_VOLUNTARIO_VOLUNTARIOid",
+                        column: x => x.VOLUNTARIOid,
+                        principalTable: "VOLUNTARIO",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -371,6 +433,11 @@ namespace Patitas_Felices.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Donaciones_CLIENTEid",
+                table: "Donaciones",
+                column: "CLIENTEid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_H_MEDICO_MASCOTASid",
                 table: "H_MEDICO",
                 column: "MASCOTASid");
@@ -386,6 +453,11 @@ namespace Patitas_Felices.Data.Migrations
                 column: "MASCOTASid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TAREA_VOLUNTARIOid",
+                table: "TAREA",
+                column: "VOLUNTARIOid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VISITAS_CLIENTEid",
                 table: "VISITAS",
                 column: "CLIENTEid");
@@ -394,6 +466,11 @@ namespace Patitas_Felices.Data.Migrations
                 name: "IX_VISITAS_MASCOTASid",
                 table: "VISITAS",
                 column: "MASCOTASid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VOLUNTARIO_CLIENTEid",
+                table: "VOLUNTARIO",
+                column: "CLIENTEid");
         }
 
         /// <inheritdoc />
@@ -418,10 +495,16 @@ namespace Patitas_Felices.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Donaciones");
+
+            migrationBuilder.DropTable(
                 name: "H_MEDICO");
 
             migrationBuilder.DropTable(
                 name: "PADRINAJE");
+
+            migrationBuilder.DropTable(
+                name: "TAREA");
 
             migrationBuilder.DropTable(
                 name: "VISITAS");
@@ -430,10 +513,13 @@ namespace Patitas_Felices.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Cliente");
+                name: "VOLUNTARIO");
 
             migrationBuilder.DropTable(
                 name: "Mascotas");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

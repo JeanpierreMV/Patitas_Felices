@@ -1,6 +1,15 @@
 @{
     ViewData["Title"] = "Donaciones";
 }
+@{
+    var mensajePago = TempData["MensajePago"] as string;
+}
+
+@if (!string.IsNullOrEmpty(mensajePago))
+{
+    <div class="alert alert-success">@mensajePago</div>
+}
+
 @section Styles {
     <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
@@ -78,7 +87,7 @@ window.onload = function() {
     </script> 
 
  <div class="pago grid" id="pago-content">
-         <form class="row" action="">
+         <form class="row" asp-controller="Donaciones" asp-action="RealizarPago" >
             <div class="wrapper" id="app">
                 <div class="card-form">
                     <div class="card-list">
@@ -195,7 +204,7 @@ window.onload = function() {
                         <div class="card-form__inner">
                             <div class="card-input">
                                 <label for="cardNumber" class="card-input__label">Número de tarjeta</label>
-                                <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask"
+                                <input type="number" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask"
                                     v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber"
                                     autocomplete="off">
                             </div>
@@ -204,10 +213,7 @@ window.onload = function() {
                                 <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput"
                                     v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
                             </div>
-                            <div class="card-input">
-                                <label for="shipping" class="card-input__label">Dirección de envio:</label>
-                                <input type="text" id="shipping" name="shipping" required class="form-control" />
-                            </div>
+                           
                             <div class="card-form__row">
                                 <div class="card-form__col">
                                     <div class="card-form__group">
@@ -236,17 +242,18 @@ window.onload = function() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="card-input__label">Monto</label>
-                                    <input type="number" id="cardQ" class="card-input__input">
-                                </div>
-                                <div class="col-md-6">
-                                    <form method="post" asp-action="RealizarPago">
+                           <form method="post" asp-action="RealizarPago" asp-controller="Donaciones">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="card-input__label">Monto</label>
+                                        <input type="number" id="cardQ" class="card-input__input" name="Monto" v-model="monto" />
+                                    </div>
+                                    <div class="col-md-6">
                                         <button class="card-form__button" type="submit">Pagar</button>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+
                            
                         </div>
                     </div>
@@ -284,12 +291,3 @@ window.onload = function() {
 
 
 }
-
-
-
-
-
-
-
-
-

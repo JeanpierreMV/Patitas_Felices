@@ -4,11 +4,28 @@
 @{
     ViewData["Title"] = "Gestion de mascotas";
 }    
+@section Styles {
+    <link rel="stylesheet" href="~/css/tareas.css">   
 
-<div class="container" style="text-align: center; margin-left: 200px;">
-    
+}
+<div class="sub1">
+    <div>
+        <b><h2>AYUDANOS  A  AYUDAR</h2></b>
+        <img src="/img/dog_albergue.png" class="perritos">
+    </div>
+</div>
+<div class="subtitulo">
+    <div><span class="" ><strong style="padding-left: 148px;"><b>LISTADO DE MASCOTAS</b></strong></span></div>
+    <div>
+        <p style="padding-top: 40px; font-size: 20px;">
+            <strong>Con tu amor y cuidado, cada pequeño gesto marca una gran diferencia en las vidas que tocamos. </strong>
+        </p>
+        <label> ¡Gracias por ser la voz y el apoyo de aquellos que no pueden hablar por sí mismos!</label>
+    </div>
+</div>
+<br><br>
+<div class="container" style="text-align: center;">
 
-    <h1 style="text-align: left">Litado de mascotas</h1>
 
     <p style="text-align: right">
         <a class="btn btn-light"asp-area="" asp-controller="Mascota" asp-action="Create">Agregar  <i class="fa fa-plus" aria-hidden="true"></i></a>
