@@ -89,7 +89,17 @@ namespace Patitas_Felices.Controllers
 
             return View();
         }
-
+public async Task<IActionResult> Lista()
+{
+    // Obtén la lista de voluntarios que deseas mostrar en la vista
+    var listaVoluntarios = await _context.VOLUNTARIO
+        .Include(v => v.CLIENTE) // Incluye la relación con CLIENTE
+   
+        .ToListAsync();
+    
+    // Pasa la lista como modelo a la vista
+    return View(listaVoluntarios);
+}
 
 
 

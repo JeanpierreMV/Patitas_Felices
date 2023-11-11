@@ -1,0 +1,71 @@
+@model IEnumerable<Patitas_Felices.Models.PADRINAJE>
+
+
+@{
+    ViewData["Title"] = "Gestion de mascotas";
+}    
+@section Styles {
+    <link rel="stylesheet" href="~/css/tareas.css">   
+
+}
+<div class="sub1">
+    <div>
+        <b><h2>AYUDANOS  A  AYUDAR</h2></b>
+        <img src="/img/dog_albergue.png" class="perritos">
+    </div>
+</div>
+<div class="subtitulo">
+    <div><span class="" ><strong style="padding-left: 148px;"><b>LISTADO DE PADRINOS</b></strong></span></div>
+</div>
+<br><br>
+<div class="container" style="text-align: center;">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    PADRINO
+                </th>
+                <th>
+                    MASCOTA
+                </th>
+                <th>
+                    MONTO
+                </th>
+            </tr>
+        </thead>
+            <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENTE.nombres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MASCOTAS.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.monto)
+                </td>
+                
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$('.carousel').carousel({
+  interval: 2000
+})
+	
+
