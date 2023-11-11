@@ -27,79 +27,102 @@ namespace Patitas_Felices.Controllers
 
          public async Task<IActionResult> Index()
         {
-            var tareas = await _context.TAREA.ToListAsync();
-            return View(tareas);
+ var userName = User.Identity.Name;
+    var cliente = await _context.CLIENTE.FirstOrDefaultAsync(c => c.User.UserName == userName);
+
+    if (cliente == null)
+    {
+        return NotFound(); // Manejar el caso en que el cliente no exista
+    }
+
+    var voluntario = await _context.VOLUNTARIO
+        .Include(v => v.TareasRealizadas)
+        .FirstOrDefaultAsync(v => v.CLIENTE.id == cliente.id);
+
+    if (voluntario == null)
+    {
+        return NotFound(); // Manejar el caso en que el voluntario no exista
+    }
+
+    var tareasSeleccionadas = voluntario.TareasRealizadas.ToList();
+
+    return View(tareasSeleccionadas);
         }
-         public IActionResult Create()
-        {
-            return View();
-        }
-
-        // Acción para guardar una nueva tarea
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TAREA tarea)
-        {
-
-                _context.Add(tarea);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
 
 
-        }
+public async Task<IActionResult> Create()
+{
+    var userName = User.Identity.Name;
+    var cliente = await _context.CLIENTE.FirstOrDefaultAsync(c => c.User.UserName == userName);
 
-        // Acción para mostrar el formulario de edición de tarea
+    if (cliente == null)
+    {
+        return NotFound(); // Manejar el caso en que el cliente no exista
+    }
+
+    var voluntario = await _context.VOLUNTARIO
+        .Include(v => v.TareasRealizadas)
+        .FirstOrDefaultAsync(v => v.CLIENTE.id == cliente.id);
+
+    if (voluntario == null)
+    {
+        return NotFound(); // Manejar el caso en que el voluntario no exista
+    }
+
+    var tareasDisponibles = await _context.TAREA.ToListAsync();
+
+    ViewBag.Voluntario = voluntario;
+    return View(tareasDisponibles);
+}
+
+[HttpPost]
+public async Task<IActionResult> Create(int[] tareasSeleccionadas)
+{
+    var userName = User.Identity.Name;
+    var cliente = await _context.CLIENTE.FirstOrDefaultAsync(c => c.User.UserName == userName);
+
+    if (cliente == null)
+    {
+        return NotFound(); // Manejar el caso en que el cliente no exista
+    }
+
+    var voluntario = await _context.VOLUNTARIO
+        .Include(v => v.TareasRealizadas)
+        .FirstOrDefaultAsync(v => v.CLIENTE.id == cliente.id);
+
+    if (voluntario == null)
+    {
+        return NotFound(); // Manejar el caso en que el voluntario no exista
+    }
+
+    var tareas = await _context.TAREA.Where(t => tareasSeleccionadas.Contains(t.Id)).ToListAsync();
+
+    voluntario.TareasRealizadas = tareas;
+
+    await _context.SaveChangesAsync();
+
+    return RedirectToAction("Index", "Home");
+}
+
+
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var tarea = await _context.TAREA.FindAsync(id);
 
             if (tarea == null)
             {
-                return NotFound();
+                return NotFound(); // Manejar el caso en que la tarea no exista
             }
 
-            return View(tarea);
+            // Cambiar el estado de completado de la tarea
+            tarea.Completada = !tarea.Completada;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index"); // Redi
         }
 
-        // Acción para actualizar una tarea
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, TAREA tarea)
-        {
-            if (id != tarea.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tarea);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TareaExists(tarea.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(tarea);
-        }
+      
 
         // Acción para mostrar detalles de una tarea
         public async Task<IActionResult> Details(int? id)
@@ -123,30 +146,28 @@ namespace Patitas_Felices.Controllers
         // Acción para eliminar una tarea
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var tarea = await _context.TAREA.FindAsync(id);
 
-            var tarea = await _context.TAREA
-                .FirstOrDefaultAsync(m => m.Id == id);
+                if (tarea == null)
+                {
+                    return NotFound(); // Manejar el caso en que la tarea no exista
+                }
 
-            if (tarea == null)
-            {
-                return NotFound();
-            }
-
-            return View(tarea);
+                return View(tarea);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var tarea = await _context.TAREA.FindAsync(id);
-            _context.TAREA.Remove(tarea);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                var tarea = await _context.TAREA.FindAsync(id);
+
+                
+
+                    _context.TAREA.Remove(tarea);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Tarea");
         }
 
         // Función para verificar si una tarea existe

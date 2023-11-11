@@ -1,4 +1,4 @@
-@model IEnumerable<Patitas_Felices.Models.TAREA>
+@model List<Patitas_Felices.Models.TAREA>
 
 @{
     ViewData["Title"] = "Gestion de mascotas";
@@ -24,38 +24,23 @@
 </div>
 <br><br>
 
-<div class="container" style="text-align: center;">  
-    <p style="text-align: right">
-        <a class="btn btn-light" asp-area="" asp-controller="Tarea" asp-action="Create">Agregar  <i class="fa fa-plus" aria-hidden="true"></i></a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>              
-                <th>ID</th>
-                <th>Tareas</th>
-                <th>Fecha</th>
-                <th>Elegir</th>
-            </tr>
-        </thead>
-        <tbody>
-           @if (Model != null)
-            {
-                @foreach (var item in Model) 
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>@Html.DisplayFor(modelItem => item.fechayhora)</td>
-                        <td> 
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+
+<form method="post">
+    <input type="hidden" name="idVoluntario" value="@ViewBag.Voluntario.id" />
+
+    <h3>Tareas Disponibles:</h3>
+    <ul>
+        @foreach (var tarea in Model)
+        {
+            <li>
+                <label>
+                    <input type="checkbox" name="tareasSeleccionadas" value="@tarea.Id" />
+                    @tarea.Descripcion
+                </label>
+            </li>
+        }
+    </ul>
+
+    <button type="submit">Guardar Tareas</button>
+</form>
 </div>

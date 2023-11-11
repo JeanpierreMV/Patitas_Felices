@@ -26,6 +26,8 @@
             <th>Especie</th>
             <th>Raza</th>
             <th>Edad</th>
+            <th>Edad</th>
+            <th>Edad</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +38,16 @@
                 <td>@mascota.tipo</td>
                 <td>@mascota.raza</td>
                 <td>@mascota.edad</td>
+                <td>
+                    <a asp-controller="Mascotas" asp-action="Visita" asp-route-id="@mascota.id">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>                     
+                </td>
+                <td>
+                    <a asp-controller="Mascotas" asp-action="Padrinaje" asp-route-id="@mascota.id">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>                     
+                </td>
             </tr>
         }
     </tbody>

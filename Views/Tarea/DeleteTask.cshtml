@@ -1,0 +1,8 @@
+@model Patitas_Felices.Models.TAREA
+
+<h2>Confirmar eliminación de tarea asignada al voluntario</h2>
+<p>¿Estás seguro de que quieres eliminar la tarea "@Model.Descripcion" asignada al voluntario?</p>
+
+<form asp-action="DeleteTask" asp-route-taskId="@Model.Id" asp-route-volunteerId="ID_DEL_VOLUNTARIO" method="post">
+    <input type="submit" value="Eliminar relación tarea-voluntario" />
+</form>

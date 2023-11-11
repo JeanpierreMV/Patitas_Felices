@@ -1,0 +1,11 @@
+@model List<Patitas_Felices.Models.TAREA>
+
+@foreach (var tarea in Model)
+{
+    <div>
+        <p>@tarea.Descripcion</p>
+        <form asp-action="UpdateTaskStatus" asp-route-id="@tarea.Id" method="post">
+            <input type="submit" value="Marcar como @((tarea.Completada ? "No completada" : "Completada"))" />
+        </form>
+    </div>
+}
