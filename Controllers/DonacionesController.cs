@@ -36,8 +36,9 @@ namespace Patitas_Felices.Controllers
             return View();
         }
 
-        public IActionResult Donaciones(){
-            return View();  
+        public async Task<IActionResult> Donaciones(){
+             var tareas = await _context.DONACIONES.ToListAsync();
+            return View(tareas);
         }
         
         /* desde aqui */
@@ -65,6 +66,14 @@ namespace Patitas_Felices.Controllers
 
       
         
+        }
+
+        public async Task<IActionResult> listaDonaciones() {
+
+
+          var tareas = await _context.DONACIONES.ToListAsync();
+            return View(tareas);
+
         }
 
     }

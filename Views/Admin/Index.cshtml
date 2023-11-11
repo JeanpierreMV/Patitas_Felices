@@ -19,40 +19,34 @@
     </div><br><br><br>
 <section class="home">
     <div class="home__container">
-        <div class="container">
-            <div class="row" style="margin-bottom: 50px;">
-                <div class="col-md-4 admin">
-                    <a class="btn btn-secondary" href="">GESTIONAR PRODUCTOS <br><img src="/img/productos.png"></a>
-                </div>
-                <div class="col-md-4 admin">
+        <div class="grid">
+            
+                <div class="admin">
                     <a class="btn btn-secondary" asp-area="" asp-controller="HistoryMedic" asp-action="Index">HISTORIAL DE SALUD<br><img src="/img/health.png"></a>
                 </div>
-                <div class="col-md-4 admin">
+                <div class="admin">
                     <a class="btn btn-secondary" href="">VOLUNTARIOS<br><img src="/img/voluntarios.png"></a>
                 </div>
-            </div>
-            <div class="row" style="margin-bottom: 50px;">
-                <div class="col-md-4 admin">
+            
+       
+                <div class="admin">
                        <a class="btn btn-secondary" asp-area="" asp-controller="Cliente" asp-action="Index">GESTIONAR USUARIOS<br><img src="/img/users.png"></a>
                 </div>
-                <div class="col-md-4 admin">
+                <div class=" admin">
                      <a class="btn btn-secondary" asp-area="" asp-controller="Mascota" asp-action="Index">GESTIONAR MASCOTAS <br><img src="/img/mascotas.png"></a>
                 </div>
-                <div class="col-md-4 admin">
-                    <a class="btn btn-secondary" href="">VENTAS <br><img src="/img/sale.png"></a>
-                </div>
-            </div>
-                <div class="row">
-                    <div class="col-md-4 admin">
-                        <a class="btn btn-secondary" href="">APRADINAJES <br><img src="/img/padrinaje.png"></a>
+
+   
+                    <div class="admin">
+                        <a class="btn btn-secondary"  asp-area="" asp-controller="Mascota" asp-action="Index">PADRINOS <br><img src="/img/padrinaje.png"></a>
                     </div>
-                    <div class="col-md-4 admin">
-                        <a class="btn btn-secondary" href="">DONACIONES <br><img src="/img/donaciones.png"></a>
+                    <div class="admin">
+                        <a class="btn btn-secondary"  asp-area="" asp-controller="Donaciones" asp-action="Donaciones">DONACIONES <br><img src="/img/donaciones.png"></a>
                     </div>
-                    <div class="col-md-4 admin">
-                         <a class="btn btn-secondary" asp-area="" asp-controller="Adopcion" asp-action="Index">Solicitudes <br><img src="/img/solicitudes.png"></a>
+                    <div class="admin">
+                         <a class="btn btn-secondary" asp-area="" asp-controller="Adopcion" asp-action="Index">SOLICITUDES DE ADOPCIÓN <br><img src="/img/solicitudes.png"></a>
                 </div>
-            </div>
+           
         </div>
     </div>
 </section>

@@ -40,7 +40,12 @@ body {
     font-size:50px;
     font-family:var(--body-font);
    }
-
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    text-align: center;
+}
 .admin a{
     height: 180px;
     width: 300px;

@@ -1,1 +1,77 @@
-<p>hola</p>
+@model IEnumerable<Patitas_Felices.Models.DONACIONES>
+@{
+    ViewData["Title"] = "Donaciones";
+}
+@{
+    var mensajePago = TempData["MensajePago"] as string;
+}
+
+@if (!string.IsNullOrEmpty(mensajePago))
+{
+    <div class="alert alert-success">@mensajePago</div>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" >    
+    <link rel="stylesheet" href="~/css/Donaciones.css">
+    <link rel="stylesheet" href="~/css/sispag.css">  
+    <link rel="stylesheet" href="~/css/pagos.css" asp-append-version="true" />   
+
+}
+<div class="sub1">
+    <div>
+        <h2>AYUDANOS  A  AYUDAR</h2>
+        <img src="/img/dog_albergue.png" class="perritos">
+    </div>
+</div>
+<div class="subtitulo">
+    <div><span style="padding-left: 150px;"><strong><b>LISTA DE DONACIONES</b></strong></span></div>
+    
+<div>
+
+
+<div class="container" style="text-align: center;">
+
+
+    <p style="text-align: right">
+        <a class="btn btn-light"asp-area="" asp-controller="Donaciones" asp-action="Create">Agregar  <i class="fa fa-plus" aria-hidden="true"></i></a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    USUARIO
+                </th>
+                <th>
+                    MONTO
+                </th>
+                <th>
+                    FECHA Y HORA
+                </th>
+                
+            </tr>
+        </thead>
+            <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENTE.nombres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>x 
